@@ -7,6 +7,7 @@ export const GET: APIRoute = async ({ request }) => {
   const VERCEL_PROJECT_ID = process.env.VERCEL_PROJECT_ID || 'prj_F6EdYIkhdgW2krNZahwV8kzrH1wN';
 
   if (!VERCEL_API_TOKEN) {
+    console.error('Missing Vercel API Token environment variable');
     return new Response(
       JSON.stringify({ error: 'Missing Vercel API Token (VERCEL_API_TOKEN environment variable)' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -25,7 +26,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Vercel API Error:', errorText);
+      console.error('Vercel API Error:', response.status, errorText);
       return new Response(
         JSON.stringify({ error: `Vercel API request failed: ${response.statusText}`, details: errorText }),
         { status: response.status, headers: { 'Content-Type': 'application/json' } }
@@ -36,6 +37,7 @@ export const GET: APIRoute = async ({ request }) => {
     const latestDeployment = data?.deployments?.[0];
 
     if (!latestDeployment) {
+      console.error('No production deployments found for project', VERCEL_PROJECT_ID);
       return new Response(
         JSON.stringify({ error: 'No production deployments found for this project' }),
         { status: 404, headers: { 'Content-Type': 'application/json' } }
@@ -55,17 +57,32 @@ export const GET: APIRoute = async ({ request }) => {
       },
     };
 
-    return new Response(
-      JSON.stringify(deploymentInfo),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    // Utwórz strumień SSE
+    const stream = new ReadableStream({
+      start(controller) {
+        const encoder = new TextEncoder();
+        const sseFormattedData = `data: ${JSON.stringify(deploymentInfo)}\n\n`;
+        controller.enqueue(encoder.encode(sseFormattedData));
+        controller.close(); // Zamknij strumień po wysłaniu jednej wiadomości
+      }
+    });
+
+    // Zwróć strumień z nagłówkami SSE
+    return new Response(stream, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      }
+    });
 
   } catch (error) {
-    console.error('Error fetching Vercel deployment status:', error);
+    console.error('Internal Server Error fetching Vercel deployment status:', error);
     // Sprawdź typ błędu przed dostępem do .message
     const errorMessage = error instanceof Error ? error.message : String(error);
     return new Response(
-      JSON.stringify({ error: 'Internal Server Error: Failed to fetch Vercel deployment status', details: errorMessage }),
+      JSON.stringify({ error: 'Internal Server Error', details: errorMessage }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
