@@ -1,9 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getEntryBySlug } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
-const project = await getEntryBySlug('projects', slug);
+// Dodano funkcję getStaticPaths dla projektów
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects'); // Użyj kolekcji 'projects'
+  return projectEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { project: entry }, // Przekaż dane projektu jako props
+  }));
+}
+
+// Pobierz propsy (dane projektu) przekazane z getStaticPaths
+const { project } = Astro.props; // Zmieniono zmienną na 'project'
+
 const { Content } = await project.render();
 ---
 
