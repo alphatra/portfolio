@@ -11,6 +11,8 @@ export async function getStaticPaths() {
   }));
 }
 
+export const prerender = true; // Dodano prerender
+
 // Pobierz propsy (dane projektu) przekazane z getStaticPaths
 const { project } = Astro.props; // Zmieniono zmienną na 'project'
 
