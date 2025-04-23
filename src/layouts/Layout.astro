@@ -7,18 +7,49 @@ import Analytics from '@vercel/analytics/astro'; // Poprawiono na default import
 
 interface Props {
 	title: string;
+	description?: string; // Dodano opcjonalny opis
+	image?: string; // Dodano opcjonalny obrazek dla OG/Twitter
 }
 
-const { title } = Astro.props;---
+const { 
+	title,
+	description = "Portfolio Gracjana - Poznaj moje projekty i umiejętności jako programisty webowego.", // Domyślny opis
+	image = '/og-image.png' // Domyślny obrazek OG (musisz go stworzyć w /public)
+} = Astro.props;
+
+const canonicalUrl = Astro.url.toString();
+const siteName = "Portfolio Gracjana"; // Możesz dostosować
+const ogTitle = `${title} | ${siteName}`;
+const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij się, że Astro.site jest ustawione w configu (jest)
 
 <!doctype html>
-<html lang="en" class="dark h-full bg-background text-foreground">
+<html lang={Astro.currentLocale || 'pl'} class="dark h-full bg-background text-foreground">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalUrl} />
+
+		{/* --- Open Graph / Facebook --- */}
+		<meta property="og:title" content={ogTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageAbsoluteUrl} />
+		<meta property="og:image:width" content="1200" /> {/* Standardowy rozmiar obrazka OG */} 
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content={Astro.currentLocale || 'pl_PL'} /> {/* Użyj formatu ISO */} 
+		<meta property="og:site_name" content={siteName} />
+
+		{/* --- Twitter Card --- */}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalUrl} />
+		<meta name="twitter:title" content={ogTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageAbsoluteUrl} />
+
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
