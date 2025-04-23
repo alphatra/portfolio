@@ -68,10 +68,11 @@ export const GET: APIRoute = async ({ request }) => {
     const stream = new ReadableStream({
       start(controller) {
         const encoder = new TextEncoder();
-        // Wyślij obiekt JSON-RPC sformatowany dla SSE, dodając typ zdarzenia
+        // Dodaj ID zdarzenia (np. timestamp), typ i dane JSON-RPC
+        const eventId = `id: ${Date.now()}\n`;
         const eventType = `event: message\n`;
         const sseFormattedData = `data: ${JSON.stringify(jsonRpcPayload)}\n\n`;
-        controller.enqueue(encoder.encode(eventType + sseFormattedData));
+        controller.enqueue(encoder.encode(eventId + eventType + sseFormattedData));
         controller.close();
       }
     });
