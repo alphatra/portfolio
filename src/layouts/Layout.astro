@@ -1,4 +1,5 @@
----import '../styles/global.css';
+---
+import '../styles/global.css';
 import Navbar from '../components/Navbar.tsx'; // Restore Navbar import
 // import DockNav from '../components/DockNav.tsx'; // Remove DockNav import
 import Footer from '../components/Footer.tsx';
@@ -21,6 +22,7 @@ const canonicalUrl = Astro.url.toString();
 const siteName = "Portfolio Gracjana"; // Możesz dostosować
 const ogTitle = `${title} | ${siteName}`;
 const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij się, że Astro.site jest ustawione w configu (jest)
+---
 
 <!doctype html>
 <html lang={Astro.currentLocale || 'pl'} class="dark h-full bg-background text-foreground">
