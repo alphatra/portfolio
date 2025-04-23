@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar.tsx'; // Restore Navbar import
 // import DockNav from '../components/DockNav.tsx'; // Remove DockNav import
 import Footer from '../components/Footer.tsx';
 import { ViewTransitions } from 'astro:transitions';
+import { Analytics } from '@vercel/analytics/astro'; // Dodano import Analytics
 
 interface Props {
 	title: string;
@@ -45,6 +46,7 @@ const { title } = Astro.props;---
 			<Footer client:load />
 		</footer>
 
+		<Analytics /> {/* Dodano komponent Analytics */}
 	</body>
 </html>
 
