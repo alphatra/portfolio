@@ -44,7 +44,7 @@ export const GET: APIRoute = async ({ request }) => {
       );
     }
 
-    // Wyekstrahuj przydatne informacje
+    // Sukces: Przygotuj dane
     const deploymentInfo = {
       id: latestDeployment.uid,
       url: `https://${latestDeployment.url}`,
@@ -57,13 +57,21 @@ export const GET: APIRoute = async ({ request }) => {
       },
     };
 
+    // Przygotuj payload JSON-RPC 2.0 (powiadomienie)
+    const jsonRpcPayload = {
+      jsonrpc: "2.0",
+      method: "vercel/deploymentStatusUpdate", // Przykładowa nazwa metody
+      params: deploymentInfo
+    };
+
     // Utwórz strumień SSE
     const stream = new ReadableStream({
       start(controller) {
         const encoder = new TextEncoder();
-        const sseFormattedData = `data: ${JSON.stringify(deploymentInfo)}\n\n`;
+        // Wyślij obiekt JSON-RPC sformatowany dla SSE
+        const sseFormattedData = `data: ${JSON.stringify(jsonRpcPayload)}\n\n`;
         controller.enqueue(encoder.encode(sseFormattedData));
-        controller.close(); // Zamknij strumień po wysłaniu jednej wiadomości
+        controller.close();
       }
     });
 
