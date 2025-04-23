@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntryBySlug } from 'astro:content';
+
+const { slug } = Astro.params;
+const project = await getEntryBySlug('projects', slug);
+const { Content } = await project.render();
+---
+
+<Layout title={project.data.title}>
+  <article class="container mx-auto px-4 py-12 prose prose-invert">
+    <h1 class="text-4xl font-bold mb-4 filter drop-shadow-[0_0_6px_theme(colors.neon-blue)]">{project.data.title}</h1>
+    <p class="text-sm text-gray-400 mb-6">
+      Updated on {project.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+    {project.data.image && (
+      <img src={project.data.image} alt={project.data.title} class="rounded mb-6" />
+    )}
+
+    <Content />
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      {project.data.projectUrl && (
+        <a href={project.data.projectUrl} target="_blank" rel="noopener noreferrer" class="text-neon-blue hover:underline">View Project &rarr;</a>
+      )}
+      {project.data.repositoryUrl && (
+        <a href={project.data.repositoryUrl} target="_blank" rel="noopener noreferrer" class="text-neon-blue hover:underline">GitHub Repo &rarr;</a>
+      )}
+    </div>
+
+    <p class="mt-8">
+      <a href="/projects" class="text-neon-blue hover:underline">← Back to Projects</a>
+    </p>
+  </article>
+</Layout> 

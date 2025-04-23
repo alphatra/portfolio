@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
+
+/* Dot Grid Background */
+.dot-grid-background {
+  background-color: #000000; /* Or your deep black */
+  /* Using a subtle green dot on black background */
+  background-image: radial-gradient(circle, rgba(45, 212, 191, 0.2) 1px, transparent 1px);
+  background-size: 16px 16px; /* Adjust size as needed */
+}
+
+/* Animated gradient background */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Global body background will be managed via Tailwind dark/light classes */
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Add utility for gradient animation */
+@layer utilities {
+  .animate-gradientBG {
+    animation: gradientBG 15s ease infinite;
+  }
+}
+
+@theme inline { --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) + 4px); --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground); --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground); --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground); --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring); --color-chart-1: var(--chart-1); --color-chart-2: var(--chart-2); --color-chart-3: var(--chart-3); --color-chart-4: var(--chart-4); --color-chart-5: var(--chart-5); --color-sidebar: var(--sidebar); --color-sidebar-foreground: var(--sidebar-foreground); --color-sidebar-primary: var(--sidebar-primary); --color-sidebar-primary-foreground: var(--sidebar-primary-foreground); --color-sidebar-accent: var(--sidebar-accent); --color-sidebar-accent-foreground: var(--sidebar-accent-foreground); --color-sidebar-border: var(--sidebar-border); --color-sidebar-ring: var(--sidebar-ring); --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+  @keyframes background-position-spin {
+  0% {
+    backgroundPosition: top center;
+    }
+  100% {
+    backgroundPosition: bottom center;
+    }
+  }
+  --animate-rippling: rippling var(--duration) ease-out
+;
+  @keyframes rippling {
+  0% {
+    opacity: 1;
+    }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+    }
+  }}
+
+:root {
+  --radius: 0.625rem;
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: #fff;
+  --card-foreground: #18181b;
+  --primary: #18181b;
+  --primary-foreground: #fff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #888;
+  --accent: #a259ff;
+  --accent-foreground: #fff;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #a259ff33;
+}
+
+.dark {
+  --background: #18181b;
+  --foreground: #fff;
+  --card: #18181b;
+  --card-foreground: #fff;
+  --primary: #fff;
+  --primary-foreground: #18181b;
+  --secondary: #232329;
+  --secondary-foreground: #fff;
+  --muted: #232329;
+  --muted-foreground: #bbb;
+  --accent: #a259ff;
+  --accent-foreground: #fff;
+  --border: #232329;
+  --input: #232329;
+  --ring: #a259ff33;
+}
+
+.accent {
+  color: var(--accent) !important;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-shadow: none !important;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .card, .widget, .minimal-block {
+    @apply bg-card border border-border rounded-lg;
+    transition: border-color 0.2s;
+  }
+  .card:hover, .widget:hover, .minimal-block:hover {
+    border-color: var(--accent);
+  }
+  .accent-border {
+    border-color: var(--accent) !important;
+  }
+  .accent-bg {
+    background: var(--accent) !important;
+    color: var(--accent-foreground) !important;
+  }
+  .accent-underline {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 2px;
+  }
+}
+
+/* Hero grid pattern background - more subtle */
+.hero-grid-bg {
+  background-color: var(--background);
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-repeat: repeat;
+}
+
+/* Basic Accessibility Styles */
+
+/* High Contrast Mode */
+html.high-contrast {
+  /* Force black background and white/yellow text */
+  background-color: #000 !important; /* Use !important cautiously */
+  color: #fff !important;
+}
+
+html.high-contrast body,
+html.high-contrast [class*="bg-"], /* Target elements with background utility classes */
+html.high-contrast [style*="background"] /* Target elements with inline backgrounds */
+{
+  background: #000 !important;
+  background-color: #000 !important;
+  background-image: none !important; /* Remove background images/gradients */
+  color: #fff !important;
+}
+
+/* Ensure links are visible in high contrast */
+html.high-contrast a {
+  color: #ffff00 !important; /* Yellow links for high visibility */
+  text-decoration: underline !important; /* Ensure underline */
+}
+
+html.high-contrast button,
+html.high-contrast input[type="button"],
+html.high-contrast input[type="submit"],
+html.high-contrast input[type="reset"] {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+html.high-contrast input[type="text"],
+html.high-contrast textarea,
+html.high-contrast select {
+    background-color: #111 !important; /* Slightly off-black for inputs */
+    color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+/* Text Size Adjustment */
+html.text-size-sm {
+  font-size: 87.5%; /* Equivalent to text-sm in Tailwind (14px if base is 16px) */
+}
+
+html.text-size-base {
+  font-size: 100%; /* Default */
+}
+
+html.text-size-lg {
+  font-size: 112.5%; /* Equivalent to text-lg in Tailwind (18px if base is 16px) */
+}
+
+/* Basic Toggle Checkbox Style (for AccessibilityMenu.tsx) */
+input.toggle-checkbox[type="checkbox"] {
+  appearance: none;
+  /* Basic styling is already applied via Tailwind classes in the component */
+  /* We need to add the style for the inner circle/dot */
+  position: relative;
+}
+
+input.toggle-checkbox[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  left: 2px; /* Adjust position */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem; /* Adjust size based on h-6/w-11 in component */
+  height: 1.25rem;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+
+input.toggle-checkbox[type="checkbox"]:checked::before {
+  transform: translate(1.25rem, -50%); /* Move the circle to the right */
+}

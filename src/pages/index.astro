@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.tsx';
+import BentoContainer from '../components/BentoContainer.tsx';
+import TechIcons from '../components/TechIcons.tsx';
+import AboutMe from '../components/AboutMe.tsx';
+import CurrentlyMaking from '../components/CurrentlyMaking.tsx';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Gracjan - Portfolio">
+	<main class="container mx-auto px-4 py-8 md:py-16 flex flex-col gap-16 md:gap-24">
+		<Hero client:visible />
+		<BentoContainer client:visible />
+		<TechIcons client:visible />
+
+		{/* Wrapped AboutMe and CurrentlyMaking in a grid for side-by-side layout */}
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+			<AboutMe client:load />
+			<CurrentlyMaking client:load />
+		</div>
+		
+	</main>
 </Layout>

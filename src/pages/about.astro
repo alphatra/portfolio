@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Removed import for AboutMeComponent as it's not used here
+import AboutPageContent from '../components/AboutPageContent.tsx';
+---
+
+<Layout title="About Me - Gracjan Ziemiański">
+  <AboutPageContent client:visible /> 
+  {/* Using client:visible to enable animations and interactions */}
+</Layout>
+
+{/* Removed the second Layout block that was causing duplication */} 

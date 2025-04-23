@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch all blog posts, sorted by publication date (newest first)
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+<Layout title="Blog - Gracjan">
+  <div class="container mx-auto px-4 py-12">
+    <h1 id="page-heading" tabindex="-1" class="text-4xl font-bold mb-8 filter drop-shadow-[0_0_6px_theme(colors.neon-green)]">Blog</h1>
+
+    <div class="space-y-8">
+      {posts.map((post) => (
+        <article class="border border-gray-700 rounded-lg p-6 hover:border-neon-green transition-colors duration-300">
+          <h2 class="text-2xl font-semibold mb-2">
+            <a href={`/blog/${post.slug}/`} class="hover:text-neon-green transition-colors duration-200">
+              {post.data.title}
+            </a>
+          </h2>
+          <p class="text-sm text-gray-400 mb-3">
+            Published on: {post.data.pubDate.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+          <p class="text-gray-300 mb-4">{post.data.description}</p>
+          <a href={`/blog/${post.slug}/`} class="text-neon-green hover:underline">
+            Read more &rarr;
+          </a>
+          {/* TODO: Add tags if needed */}
+          {/* {post.data.tags && (
+            <div class="mt-4 flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="bg-gray-700 text-xs px-2 py-1 rounded">{tag}</span>
+              ))}
+            </div>
+          )} */}
+        </article>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <p>No blog posts found yet. Check back soon!</p>
+    )}
+  </div>
+</Layout> 

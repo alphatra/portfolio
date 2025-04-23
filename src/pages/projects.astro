@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch all projects, sorted by publication date (newest first)
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+<Layout title="Projects - Gracjan">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8 filter drop-shadow-[0_0_6px_theme(colors.neon-blue)]">Projects</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project) => (
+        <details class="border border-gray-700 rounded-lg p-4 hover:border-neon-blue transition-colors duration-300" key={project.slug}>
+          <summary class="cursor-pointer outline-none focus:ring-2 focus:ring-neon-blue rounded-md p-2">
+            <div class="flex justify-between items-center">
+              <h2 class="text-xl font-semibold text-gray-200">{project.data.title}</h2>
+              <span class="text-sm text-gray-400">
+                {project.data.pubDate.toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'short', day: 'numeric',
+                })}
+              </span>
+            </div>
+          </summary>
+          <div class="mt-4 space-y-4">
+            {project.data.image && (
+              <img src={project.data.image} alt={`Screenshot of ${project.data.title}`} class="rounded-md w-full h-40 object-cover" />
+            )}
+            <p class="text-gray-300">{project.data.description}</p>
+            <div class="flex flex-wrap gap-4">
+              {project.data.projectUrl && (
+                <a href={project.data.projectUrl} target="_blank" rel="noopener noreferrer" class="text-neon-blue hover:underline">
+                  View Project &rarr;
+                </a>
+              )}
+              {project.data.repositoryUrl && (
+                <a href={project.data.repositoryUrl} target="_blank" rel="noopener noreferrer" class="text-neon-blue hover:underline">
+                  GitHub Repo &rarr;
+                </a>
+              )}
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    {projects.length === 0 && (
+      <p>No projects found yet. Check back soon!</p>
+    )}
+  </div>
+</Layout> 

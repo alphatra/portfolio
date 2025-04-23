@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntryBySlug } from 'astro:content';
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug('blog', slug);
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+  <article class="container mx-auto px-4 py-12 prose prose-invert">
+    <h1 class="text-4xl font-bold mb-4 filter drop-shadow-[0_0_6px_theme(colors.neon-green)]">{post.data.title}</h1>
+    <p class="text-sm text-gray-400 mb-6">
+      Published on {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+    {post.data.heroImage && (
+      <img src={post.data.heroImage} alt={post.data.title} class="rounded mb-6" />
+    )}
+
+    <Content />
+
+    <p class="mt-8">
+      <a href="/blog" class="text-neon-green hover:underline">← Back to Blog</a>
+    </p>
+  </article>
+</Layout> 
