@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Site Maintenance | Y2K Mode">
+  <div class="y2k-maintenance-container min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+    <!-- Y2K Chat Window -->
+    <div class="y2k-window relative p-1 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-lg max-w-2xl w-full mx-auto">
+      <div class="y2k-window-inner relative bg-gradient-to-br from-blue-900/80 to-purple-900/80 rounded-md p-6 border-2 border-white/30 overflow-hidden backdrop-blur-sm">
+        
+        <!-- Window Header -->
+        <div class="y2k-window-header flex items-center justify-between mb-4 border-b-2 border-white/20 pb-2">
+          <div class="flex items-center">
+            <div class="h-3 w-3 rounded-full bg-pink-400 mr-1.5"></div>
+            <div class="h-3 w-3 rounded-full bg-yellow-400 mr-1.5"></div>
+            <div class="h-3 w-3 rounded-full bg-green-400"></div>
+          </div>
+          <h2 class="text-white font-bold tracking-wider text-sm">maintenance_wizard.exe</h2>
+          <div class="w-10"></div> <!-- Spacer for alignment -->
+        </div>
+        
+        <!-- Maintenance Animation & Message -->
+        <div class="text-center py-8 relative">
+          <!-- Animated Computer Icon -->
+          <div class="mb-6 inline-block relative">
+            <div class="w-32 h-24 bg-gray-200 rounded-md border-4 border-gray-400 relative mx-auto">
+              <div class="absolute inset-2 bg-cyan-300 rounded overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-blue-500 flex items-center p-0.5">
+                  <div class="w-1 h-1 bg-white rounded-full"></div>
+                </div>
+                
+                <!-- Animated Loading Bar -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <div class="loading-bar w-3/4 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-loading-bar"></div>
+                  </div>
+                  <div class="text-[8px] text-blue-900 mt-1 font-bold">UPGRADING...</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Computer Stand -->
+            <div class="w-12 h-4 bg-gray-400 mx-auto rounded-b-md"></div>
+            <div class="w-16 h-1.5 bg-gray-300 mx-auto rounded-md"></div>
+          </div>
+          
+          <!-- Blinking Status/Title -->
+          <h1 class="text-4xl font-black text-white relative z-10 mb-4 animate-pulse">SITE MAINTENANCE</h1>
+          
+          <!-- Message -->
+          <div class="message-container mb-6 bg-black/50 p-4 rounded-md border border-white/20">
+            <p class="text-yellow-300 font-bold typewriter mb-2">$ System Upgrade in Progress...</p>
+            <p class="text-white/70 mb-2 text-sm">We're adding some awesome new features to make your experience even better!</p>
+            <p class="text-white/70 text-sm">Please check back soon. Expected completion: <span class="text-green-400 font-mono">00:30:00</span></p>
+          </div>
+          
+          <!-- Action Buttons with Y2K styling -->
+          <div class="mt-8 flex justify-center">
+            <button onclick="window.location.href='mailto:contact@example.com'" class="y2k-button bg-gradient-to-r from-pink-600 to-purple-500 hover:from-pink-500 hover:to-purple-400 text-white font-bold py-2 px-6 rounded-md border border-white/30 shadow-lg transform hover:scale-105 transition flex items-center justify-center">
+              <span class="mr-2">✉</span> Contact Us
+            </button>
+          </div>
+        </div>
+        
+        <!-- Y2K Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+          <!-- Floating elements -->
+          <div class="absolute top-1/4 left-4 opacity-60">
+            <div class="y2k-star transform rotate-45">
+              <div class="w-5 h-1 bg-yellow-300 rounded"></div>
+              <div class="w-1 h-5 bg-yellow-300 rounded absolute left-2 -top-2"></div>
+            </div>
+          </div>
+          <div class="absolute bottom-1/4 right-4 opacity-60">
+            <div class="y2k-star transform rotate-12">
+              <div class="w-5 h-1 bg-pink-300 rounded"></div>
+              <div class="w-1 h-5 bg-pink-300 rounded absolute left-2 -top-2"></div>
+            </div>
+          </div>
+          
+          <!-- Animated cursor/dots -->
+          <div class="absolute top-16 right-12 w-2 h-2 bg-cyan-300/50 rounded-full animate-blink"></div>
+          <div class="absolute bottom-20 left-10 w-2 h-2 bg-yellow-300/50 rounded-full animate-float"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Y2K Animation Keyframes */
+  @keyframes loading-bar {
+    0% { width: 0; }
+    50% { width: 100%; }
+    100% { width: 0; }
+  }
+  
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  @keyframes cursor-blink {
+    50% { border-color: transparent; }
+  }
+  
+  /* Animations */
+  .animate-loading-bar {
+    animation: loading-bar 3s infinite;
+  }
+  
+  .typewriter {
+    overflow: hidden;
+    border-right: .15em solid #68d391;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .1em;
+    animation: 
+      typewriter 3.5s steps(40, end) 1s 1 normal both,
+      cursor-blink 0.75s step-end infinite;
+  }
+  
+  /* Y2K styling */
+  .y2k-maintenance-container {
+    background-color: #000;
+    background-image: 
+      radial-gradient(circle at 25% 30%, rgba(255, 105, 180, 0.15) 0%, transparent 30%),
+      radial-gradient(circle at 75% 70%, rgba(175, 238, 238, 0.15) 0%, transparent 30%);
+  }
+  
+  .y2k-button {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  .message-container {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+</style> 

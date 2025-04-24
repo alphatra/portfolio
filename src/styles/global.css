@@ -248,3 +248,36 @@ input.toggle-checkbox[type="checkbox"]::before {
 input.toggle-checkbox[type="checkbox"]:checked::before {
   transform: translate(1.25rem, -50%); /* Move the circle to the right */
 }
+
+/* Y2K Loader Animations */
+@keyframes shimmer-fast {
+  0% { transform: translateX(-100%) skew-x-12; }
+  100% { transform: translateX(400%) skew-x-12; }
+}
+
+.animate-shimmer-fast {
+  animation: shimmer-fast 1.5s infinite;
+}
+
+.animate-pulse-fast {
+  animation: pulse 1s infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.y2k-loader-bg {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+}

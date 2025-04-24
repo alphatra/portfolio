@@ -6,6 +6,8 @@ import Footer from '../components/Footer.tsx';
 import { ViewTransitions } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro'; // Poprawiono na default import
 import SpeedInsights from "@vercel/speed-insights/astro";
+import { ThemeProvider } from '../components/ThemeProvider.tsx';
+import Y2KLoader from '../components/Y2KLoader.tsx';
 
 interface Props {
 	title: string;
@@ -54,31 +56,69 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij siÄ
 		<meta name="twitter:image" content={ogImageAbsoluteUrl} />
 
 		<title>{title}</title>
+
+		{/* Font preload script */}
+		<script>
+			// Preload critical fonts
+			if (typeof window !== 'undefined') {
+				// Create preload link for critical Inter font
+				const preloadLink = document.createElement('link');
+				preloadLink.rel = 'preload';
+				preloadLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+				preloadLink.as = 'style';
+				preloadLink.crossOrigin = 'anonymous';
+				document.head.appendChild(preloadLink);
+				
+				// Add a link rel stylesheet for the critical font
+				const styleLink = document.createElement('link');
+				styleLink.rel = 'stylesheet';
+				styleLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+				document.head.appendChild(styleLink);
+				
+				// Load non-critical fonts when idle
+				const requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+				
+				requestIdleCallback(() => {
+					// Load heavier font weights after page is loaded
+					const nonCriticalLink = document.createElement('link');
+					nonCriticalLink.rel = 'stylesheet';
+					nonCriticalLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap';
+					document.head.appendChild(nonCriticalLink);
+				});
+			}
+		</script>
+
 		<ViewTransitions />
 	</head>
 	<body class="relative h-full font-sans flex flex-col">
-		{/* Restore original header with Navbar */}
-		<header role="banner">
-			<Navbar client:load />
-		</header>
-		
-		{/* Skip link for keyboard navigation - visually hidden until focused */}
-		<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
-		
-		{/* Remove DockNav container */}
-		{/* 
-		<div class="fixed top-4 left-1/2 -translate-x-1/2 max-w-xl w-[90%] z-50">
-			<DockNav client:load />
-		</div> 
-		*/}
+		{/* Wrap the content with the ThemeProvider */}
+		<ThemeProvider client:load>
+			{/* Y2K Loader */}
+			<Y2KLoader client:only="react" message="Initializing Portfolio..." loadingTime={2000} />
+			
+			{/* Restore original header with Navbar */}
+			<header role="banner">
+				<Navbar client:load />
+			</header>
+			
+			{/* Skip link for keyboard navigation - visually hidden until focused */}
+			<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
+			
+			{/* Remove DockNav container */}
+			{/* 
+			<div class="fixed top-4 left-1/2 -translate-x-1/2 max-w-xl w-[90%] z-50">
+				<DockNav client:load />
+			</div> 
+			*/}
 
-		<main id="main-content" role="main" class="flex-grow pt-16"> {/* Restore original padding pt-16 */}
-			<slot />
-		</main>
-		
-		<footer role="contentinfo"> {/* Wrap Footer in footer tag */}
-			<Footer client:load />
-		</footer>
+			<main id="main-content" role="main" class="flex-grow pt-16"> {/* Restore original padding pt-16 */}
+				<slot />
+			</main>
+			
+			<footer role="contentinfo"> {/* Wrap Footer in footer tag */}
+				<Footer client:load />
+			</footer>
+		</ThemeProvider>
 
 		<Analytics /> {/* Dodano komponent Analytics */}
 		<SpeedInsights /> {/* Dodano komponent SpeedInsights */}
@@ -87,7 +127,7 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij siÄ
 
 <style is:global>
 	/* Import Inter font */
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 	
 	html {
 		scroll-behavior: smooth;

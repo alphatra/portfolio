@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import React from 'react';
+import { useTheme } from './ThemeProvider';
+import { SunIcon, MoonIcon, LaptopIcon } from 'lucide-react';
 
-export const ThemeToggle: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-    }
-    return 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+export default function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
   };
 
   return (
     <button
       onClick={toggleTheme}
-      aria-label="Toggle dark mode"
-      className="p-2 rounded-md bg-gray-800/50 hover:bg-gray-700/60 transition-colors"
+      className="y2k-theme-button p-2 rounded-full transition-transform hover:scale-110 active:scale-95"
+      aria-label="Toggle theme"
     >
-      {theme === 'dark' ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-300" />}
+      <div className="relative w-8 h-8 flex items-center justify-center">
+        {theme === 'light' && (
+          <SunIcon className="w-5 h-5 text-yellow-500 animate-spin-slow" />
+        )}
+        {theme === 'dark' && (
+          <MoonIcon className="w-5 h-5 text-indigo-400 animate-pulse" />
+        )}
+        {theme === 'system' && (
+          <LaptopIcon className="w-5 h-5 text-accent animate-float" />
+        )}
+        
+        {/* Y2K Decorative elements */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 opacity-30 animate-pulse"></div>
+        <div className="absolute top-0 left-0 w-2 h-2 rounded-full bg-white opacity-70"></div>
+        <div className="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-yellow-200 opacity-70"></div>
+      </div>
     </button>
   );
-};
-
-export default ThemeToggle; 
+} 
