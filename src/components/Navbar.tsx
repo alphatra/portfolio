@@ -72,7 +72,6 @@ export const Navbar: React.FC = () => {
               <a 
                 key={link.name} 
                 href={link.href} 
-                // Use foreground color, slightly muted, full foreground on hover
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
               >
                 {link.name}
