@@ -1,38 +1,84 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-// Dodano funkcję getStaticPaths
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { post: entry },
+    params: { slug: entry.slug }, props: { entry },
   }));
 }
 
-export const prerender = true;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
 
-// Pobierz propsy (dane posta) przekazane z getStaticPaths
-const { post } = Astro.props;
-
-const { Content } = await post.render();
+// Funkcja formatująca datę
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('pl-PL', { // Użyj polskiego formatu
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 ---
-
-<Layout title={post.data.title}>
-  <article class="container mx-auto px-4 py-12 prose prose-invert">
-    <h1 class="text-4xl font-bold mb-4 filter drop-shadow-[0_0_6px_theme(colors.neon-green)]">{post.data.title}</h1>
-    <p class="text-sm text-gray-400 mb-6">
-      Published on {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-    </p>
-    {post.data.heroImage && (
-      <img src={post.data.heroImage} alt={post.data.title} class="rounded mb-6" />
+<Layout title={entry.data.title} description={entry.data.description} image={entry.data.heroImage}>
+  <article class="container mx-auto px-4 py-16 max-w-3xl">
+    {entry.data.heroImage && (
+      <img 
+        src={entry.data.heroImage}
+        alt="" 
+        class="w-full h-64 md:h-80 object-cover rounded-lg mb-8 border border-border/20"
+      />
     )}
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-2">{entry.data.title}</h1>
+      <p class="text-sm text-muted-foreground">
+        Opublikowano: {formatDate(entry.data.pubDate)}
+      </p>
+      {entry.data.tags && entry.data.tags.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {entry.data.tags.map(tag => (
+            <span class="inline-block bg-secondary text-secondary-foreground text-xs font-medium px-2.5 py-0.5 rounded y2k-tag">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
 
-    <Content />
+    <div class="prose prose-invert max-w-none prose-headings:text-foreground prose-a:text-accent hover:prose-a:underline prose-blockquote:border-accent prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-code:text-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
+      <Content />
+    </div>
 
-    <p class="mt-8">
-      <a href="/blog" class="text-neon-green hover:underline">← Back to Blog</a>
-    </p>
+    <hr class="my-12 border-border/50" />
+
+    <div class="text-center">
+      <a href="/blog" class="text-accent hover:underline">
+        ← Wróć do Bloga
+      </a>
+    </div>
   </article>
-</Layout> 
+</Layout>
+
+<style is:global>
+  /* Style dla elementów generowanych z Markdown */
+  .prose img {
+    @apply rounded-lg border border-border/20;
+  }
+  .prose code::before, .prose code::after {
+    content: ''; /* Usuwa domyślne backticks z bloków kodu */
+  }
+  .prose pre {
+    @apply bg-secondary p-4 rounded-lg border border-border/20;
+  }
+  /* Subtelny styl Y2K dla tagów */
+  .y2k-tag {
+    border: 1px solid var(--border);
+    box-shadow: 1px 1px 0px 0px var(--accent);
+    transition: all 0.2s ease-in-out;
+  }
+  .y2k-tag:hover {
+     box-shadow: 2px 2px 0px 0px var(--accent);
+     transform: translate(-1px, -1px);
+  }
+</style> 
