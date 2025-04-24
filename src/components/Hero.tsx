@@ -1,5 +1,5 @@
 import * as React from "react";
-import { motion } from 'framer-motion'; // Import motion for animations
+import { motion, useReducedMotion } from 'framer-motion'; // Import motion and useReducedMotion
 import { TypingAnimation } from "./magicui/typing-animation";
 import { cn } from "@/lib/utils"; // Import cn if needed for combining classes
 
@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils"; // Import cn if needed for combining classes
 // import Typewriter from './Typewriter'; 
 
 export const Hero: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion(); // Użyj hooka
+
   // Placeholder data - replace with actual content
   const name = "Gracjan";
   const specialty = "Full-Stack Developer";
@@ -20,9 +22,9 @@ export const Hero: React.FC = () => {
   return (
     <section className="min-h-screen grid grid-cols-1 md:grid-cols-3 items-center gap-8 relative overflow-hidden hero-grid-bg px-6 md:px-12 lg:px-20">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
+        initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }} // Warunkowe initial
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }} // Warunkowe transition
         className="z-10 md:col-span-3"
       >
         <h1 className="text-7xl lg:text-9xl font-extrabold mb-4 text-foreground">

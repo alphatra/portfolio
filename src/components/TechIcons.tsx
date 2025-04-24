@@ -1,21 +1,9 @@
 import * as React from "react";
-// Importing potentially relevant icons from lucide-react
-// Note: Lucide doesn't have specific brand icons for all technologies (e.g., HTML5, Python).
-// We might need to use generic icons or import SVGs directly later.
 import { 
-  CodeXml, // Placeholder for HTML/XML
-  Palette, // Placeholder for CSS
-  AppWindow, // Using AppWindow as placeholder for React
-  Wind, // Tailwind CSS has a wind icon
-  Database, // Prisma, Supabase, Databases
-  Container, // Docker
-  Server, // Node.js, NestJS, Backend
-  Cloud, // Supabase (Cloud backend)
-  Braces, // General code / Python / Django
-  Component // Svelte/Next.js (Component-based)
+  CodeXml, Palette, AppWindow, Wind, Database, Container, Server, Cloud, Braces, Component
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion'; // Import motion
+import { motion, useReducedMotion } from 'framer-motion'; // Import useReducedMotion
 
 const technologies = [
   { name: 'HTML5', Icon: CodeXml, color: 'text-orange-500' },
@@ -50,13 +38,34 @@ const itemVariants = {
 };
 
 export const TechIcons: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion(); // Użyj hooka
+
+  // Conditional variants based on reduced motion preference
+  const reducedContainerVariants = {
+    hidden: { opacity: 1 }, // Skip initial fade-in for container
+    visible: { opacity: 1 },
+  };
+
+  const reducedItemVariants = {
+    hidden: { opacity: 1, y: 0 }, // Skip initial fade-in/slide-up for items
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <div className="flex flex-row flex-wrap justify-center items-center gap-x-10 gap-y-4">
+        {/* Apply container variants, conditionally based on reduced motion */}
+        <motion.div 
+          className="flex flex-row flex-wrap justify-center items-center gap-x-10 gap-y-4"
+          variants={shouldReduceMotion ? reducedContainerVariants : containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {technologies.map(({ name, Icon }, i) => (
-            <div
+            // Apply item variants, conditionally based on reduced motion
+            <motion.div
               key={name}
+              variants={shouldReduceMotion ? reducedItemVariants : itemVariants}
               className="flex flex-row items-center gap-2 group cursor-default select-none focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
               tabIndex={0}
               role="img"
@@ -67,9 +76,9 @@ export const TechIcons: React.FC = () => {
               <span className="text-xs font-mono text-foreground/70 group-hover:accent transition-colors duration-200">
                 {name}
               </span>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
