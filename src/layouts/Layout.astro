@@ -96,23 +96,22 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 		{/* Restore original header with Navbar */}
 		<header role="banner">
 			<Navbar client:load />
-			{/* Wstawiamy nasz ClientThemeToggle do dokumentu */}
-			<div id="theme-toggle-script">
-				<script>
-					// Skrypt znajduje placeholder dla przycisku przełączania motywu i wstawia w jego miejsce nasz komponent
-					document.addEventListener('DOMContentLoaded', () => {
-						const placeholder = document.getElementById('theme-toggle-placeholder');
-						if (placeholder) {
-							const toggle = document.getElementById('theme-toggle-container');
-							if (toggle) {
-								placeholder.replaceWith(toggle);
-							}
-						}
-					});
-				</script>
-				<ClientThemeToggle />
-			</div>
 		</header>
+		
+		{/* Renderujemy ClientThemeToggle osobno i przepisujemy go do placeholdera za pomocą skryptu */}
+		<ClientThemeToggle />
+		
+		<script>
+			// Skrypt, który przenosi ClientThemeToggle do odpowiedniego miejsca w Navbar
+			document.addEventListener('DOMContentLoaded', () => {
+				const themeToggle = document.getElementById('theme-toggle-container');
+				const placeholder = document.getElementById('theme-toggle-placeholder');
+				
+				if (themeToggle && placeholder) {
+					placeholder.parentNode?.replaceChild(themeToggle, placeholder);
+				}
+			});
+		</script>
 		
 		{/* Skip link for keyboard navigation - visually hidden until focused */}
 		<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>

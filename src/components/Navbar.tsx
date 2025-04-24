@@ -5,6 +5,9 @@ import AccessibilityMenu from './AccessibilityMenu'; // Import new menu (uncomme
 import { Accessibility } from 'lucide-react'; // Corrected icon import
 import { cn } from "@/lib/utils"; // Import cn for potential future use
 
+// Importujemy ClientThemeToggle, ale nie za pomocą importu ES6, tylko jako komponent Astro
+// import ClientThemeToggle from './ClientThemeToggle.astro';
+
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Blog', href: '/blog' },
@@ -87,7 +90,9 @@ export const Navbar: React.FC = () => {
               aria-label="Open search"
               className="bg-muted border border-border rounded-md py-1 px-3 text-sm text-foreground placeholder:text-foreground/50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
             />
-            <div id="theme-toggle-placeholder"></div>
+            
+            {/* Theme toggle placeholder - zastąpiony przez ClientThemeToggle.astro w Layout.astro */}
+            <div id="theme-toggle-placeholder" aria-label="Toggle theme mode"></div>
             
             {/* Accessibility Menu Trigger Button */}
             <div className="relative">
