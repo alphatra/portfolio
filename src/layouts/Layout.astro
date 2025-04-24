@@ -6,7 +6,6 @@ import { ViewTransitions } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ClientThemeToggle from '../components/ClientThemeToggle.astro';
-import Y2KLoader from '../components/Y2KLoader.tsx';
 
 interface Props {
 	title: string;
@@ -90,29 +89,23 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 		<ViewTransitions />
 	</head>
 	<body class="relative h-full font-sans flex flex-col">
-		{/* Y2K Loader - teraz tylko renderowany po stronie klienta */}
-		<Y2KLoader client:only="react" message="Initializing Portfolio..." loadingTime={2000} />
-		
-		{/* Restore original header with Navbar */}
 		<header role="banner">
 			<Navbar client:load />
 		</header>
 		
-		{/* Skip link for keyboard navigation - visually hidden until focused */}
 		<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
 
-		<main id="main-content" role="main" class="flex-grow pt-16"> {/* Restore original padding pt-16 */}
+		<main id="main-content" role="main" class="flex-grow pt-16">
 			<slot />
 		</main>
 		
-		<footer role="contentinfo"> {/* Wrap Footer in footer tag */}
+		<footer role="contentinfo">
 			<Footer client:load />
 		</footer>
 
 		<Analytics />
 		<SpeedInsights />
 
-		{/* Skrypt inicjujący preferencje ciemnego/jasnego motywu na podstawie ustawień systemu */}
 		<script is:inline>
 			// Prosty skrypt inicjalizacji motywu bez ThemeProvider - będzie zastąpiony przez pełny ThemeProvider po hydratacji
 			(function() {
