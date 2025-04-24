@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar.tsx'; // Restore Navbar import
 import Footer from '../components/Footer.tsx';
 import { ViewTransitions } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro'; // Poprawiono na default import
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
 	title: string;
@@ -80,6 +81,7 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij siÄ
 		</footer>
 
 		<Analytics /> {/* Dodano komponent Analytics */}
+		<SpeedInsights /> {/* Dodano komponent SpeedInsights */}
 	</body>
 </html>
 
