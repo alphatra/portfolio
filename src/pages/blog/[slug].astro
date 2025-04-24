@@ -63,13 +63,21 @@ const formatDate = (date: Date) => {
 <style is:global>
   /* Style dla elementów generowanych z Markdown */
   .prose img {
-    @apply border border-border;
+    /* Zastosowano bezpośredni CSS zamiast @apply, aby naprawić błąd Tailwind */
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border); /* Użycie zmiennej CSS */
+    border-radius: 0.5rem; /* Dodano zaokrąglenie z powrotem (Tailwind: rounded-lg) */
   }
   .prose code::before, .prose code::after {
     content: ''; /* Usuwa domyślne backticks z bloków kodu */
   }
   .prose pre {
-    @apply bg-secondary p-4 rounded-lg border border-border/20;
+    /* Tutaj też zastosujemy bezpośredni CSS */
+    background-color: var(--secondary);
+    padding: 1rem;
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid var(--border); /* Zamiast border-border/20 */
   }
   /* Subtelny styl Y2K dla tagów */
   .y2k-tag {
