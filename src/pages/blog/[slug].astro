@@ -79,8 +79,13 @@ const formatDate = (date: Date) => {
     content: none; /* Upewnijmy się, że nie ma dodatkowych znaków */
   }
   .prose pre {
-    @apply bg-secondary p-4 rounded-lg border border-border text-sm;
-    /* Usunięto bezpośrednie style, bo @apply powinno tu zadziałać */
+    /* Zastąpiono @apply bezpośrednim stylem CSS, aby uniknąć błędu Tailwind */
+    background-color: var(--secondary);
+    padding: 1rem;
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid var(--border);
+    font-size: 0.875rem; /* text-sm */
+    overflow-x: auto; /* Dodano dla długich linii kodu */
   }
   /* Usunięto specyficzne style dla .prose img, bo są w klasach prose-img */
   /* Usunięto style .y2k-tag */
