@@ -1,0 +1,36 @@
+---
+// ClientThemeToggle.astro - bezpieczne ładowanie komponentu ThemeToggle tylko po stronie klienta
+---
+
+<div id="theme-toggle-container" class="p-2 rounded-full"></div>
+
+<script>
+  // Skrypt uruchamiany po stronie klienta
+  import { ThemeProvider } from './ThemeProvider';
+  import ThemeToggle from './ThemeToggle';
+  import { createElement } from 'react';
+  import { createRoot } from 'react-dom/client';
+
+  // Poczekaj na załadowanie DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('theme-toggle-container');
+    if (container) {
+      // Utwórz root dla React
+      const root = createRoot(container);
+      
+      // Renderuj ThemeToggle wewnątrz ThemeProvider
+      root.render(
+        createElement(ThemeProvider, {}, 
+          createElement(ThemeToggle)
+        )
+      );
+    }
+  });
+</script>
+
+<style>
+  /* Style można dodać tutaj, jeśli potrzebne */
+  #theme-toggle-container {
+    display: inline-block;
+  }
+</style> 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import ThemeToggle from './ThemeToggle';
 import SearchModal from './SearchModal'; // Import the modal
 import AccessibilityMenu from './AccessibilityMenu'; // Import new menu (uncommented)
 import { Accessibility } from 'lucide-react'; // Corrected icon import
@@ -88,7 +87,7 @@ export const Navbar: React.FC = () => {
               aria-label="Open search"
               className="bg-muted border border-border rounded-md py-1 px-3 text-sm text-foreground placeholder:text-foreground/50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
             />
-            <ThemeToggle />
+            <div id="theme-toggle-placeholder"></div>
             
             {/* Accessibility Menu Trigger Button */}
             <div className="relative">

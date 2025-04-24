@@ -1,30 +1,29 @@
 ---
 import '../styles/global.css';
-import Navbar from '../components/Navbar.tsx'; // Restore Navbar import
-// import DockNav from '../components/DockNav.tsx'; // Remove DockNav import
+import Navbar from '../components/Navbar.tsx';
 import Footer from '../components/Footer.tsx';
 import { ViewTransitions } from 'astro:transitions';
-import Analytics from '@vercel/analytics/astro'; // Poprawiono na default import
+import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro";
-import { ThemeProvider } from '../components/ThemeProvider.tsx';
+import ClientThemeToggle from '../components/ClientThemeToggle.astro';
 import Y2KLoader from '../components/Y2KLoader.tsx';
 
 interface Props {
 	title: string;
-	description?: string; // Dodano opcjonalny opis
-	image?: string; // Dodano opcjonalny obrazek dla OG/Twitter
+	description?: string;
+	image?: string;
 }
 
 const { 
 	title,
-	description = "Portfolio Gracjana - Poznaj moje projekty i umiejętności jako programisty webowego.", // Domyślny opis
-	image = '/og-image.png' // Domyślny obrazek OG (musisz go stworzyć w /public)
+	description = "Portfolio Gracjana - Poznaj moje projekty i umiejętności jako programisty webowego.",
+	image = '/og-image.png'
 } = Astro.props;
 
 const canonicalUrl = Astro.url.toString();
-const siteName = "Portfolio Gracjana"; // Możesz dostosować
+const siteName = "Portfolio Gracjana";
 const ogTitle = `${title} | ${siteName}`;
-const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij się, że Astro.site jest ustawione w configu (jest)
+const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 ---
 
 <!doctype html>
@@ -43,9 +42,9 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij si�
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:image" content={ogImageAbsoluteUrl} />
-		<meta property="og:image:width" content="1200" /> {/* Standardowy rozmiar obrazka OG */} 
+		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:locale" content={Astro.currentLocale || 'pl_PL'} /> {/* Użyj formatu ISO */} 
+		<meta property="og:locale" content={Astro.currentLocale || 'pl_PL'} />
 		<meta property="og:site_name" content={siteName} />
 
 		{/* --- Twitter Card --- */}
@@ -91,37 +90,63 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString(); // Upewnij si�
 		<ViewTransitions />
 	</head>
 	<body class="relative h-full font-sans flex flex-col">
-		{/* Wrap the content with the ThemeProvider */}
-		<ThemeProvider client:load>
-			{/* Y2K Loader */}
-			<Y2KLoader client:only="react" message="Initializing Portfolio..." loadingTime={2000} />
-			
-			{/* Restore original header with Navbar */}
-			<header role="banner">
-				<Navbar client:load />
-			</header>
-			
-			{/* Skip link for keyboard navigation - visually hidden until focused */}
-			<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
-			
-			{/* Remove DockNav container */}
-			{/* 
-			<div class="fixed top-4 left-1/2 -translate-x-1/2 max-w-xl w-[90%] z-50">
-				<DockNav client:load />
-			</div> 
-			*/}
+		{/* Y2K Loader - teraz tylko renderowany po stronie klienta */}
+		<Y2KLoader client:only="react" message="Initializing Portfolio..." loadingTime={2000} />
+		
+		{/* Restore original header with Navbar */}
+		<header role="banner">
+			<Navbar client:load />
+			{/* Wstawiamy nasz ClientThemeToggle do dokumentu */}
+			<div id="theme-toggle-script">
+				<script>
+					// Skrypt znajduje placeholder dla przycisku przełączania motywu i wstawia w jego miejsce nasz komponent
+					document.addEventListener('DOMContentLoaded', () => {
+						const placeholder = document.getElementById('theme-toggle-placeholder');
+						if (placeholder) {
+							const toggle = document.getElementById('theme-toggle-container');
+							if (toggle) {
+								placeholder.replaceWith(toggle);
+							}
+						}
+					});
+				</script>
+				<ClientThemeToggle />
+			</div>
+		</header>
+		
+		{/* Skip link for keyboard navigation - visually hidden until focused */}
+		<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
 
-			<main id="main-content" role="main" class="flex-grow pt-16"> {/* Restore original padding pt-16 */}
-				<slot />
-			</main>
-			
-			<footer role="contentinfo"> {/* Wrap Footer in footer tag */}
-				<Footer client:load />
-			</footer>
-		</ThemeProvider>
+		<main id="main-content" role="main" class="flex-grow pt-16"> {/* Restore original padding pt-16 */}
+			<slot />
+		</main>
+		
+		<footer role="contentinfo"> {/* Wrap Footer in footer tag */}
+			<Footer client:load />
+		</footer>
 
-		<Analytics /> {/* Dodano komponent Analytics */}
-		<SpeedInsights /> {/* Dodano komponent SpeedInsights */}
+		<Analytics />
+		<SpeedInsights />
+
+		{/* Skrypt inicjujący preferencje ciemnego/jasnego motywu na podstawie ustawień systemu */}
+		<script is:inline>
+			// Prosty skrypt inicjalizacji motywu bez ThemeProvider - będzie zastąpiony przez pełny ThemeProvider po hydratacji
+			(function() {
+				const getInitialTheme = () => {
+					// Sprawdź localStorage
+					const storedTheme = localStorage.getItem('theme');
+					if (storedTheme === 'light' || storedTheme === 'dark') {
+						return storedTheme;
+					}
+					// Sprawdź preferencje systemowe
+					return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				};
+				
+				// Ustaw klasy dla motywu
+				const theme = getInitialTheme();
+				document.documentElement.classList.toggle('dark', theme === 'dark');
+			})();
+		</script>
 	</body>
 </html>
 
