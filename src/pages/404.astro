@@ -1,131 +1,37 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Home, ArrowLeft } from 'lucide-react';
 ---
 
-<Layout title="404 - Not Found | Y2K Error">
-  <div class="y2k-error-container min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
-    <div class="y2k-window relative p-1 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-lg max-w-2xl w-full mx-auto">
-      <div class="y2k-window-inner relative bg-gradient-to-br from-indigo-900 to-purple-900 rounded-md p-6 border-2 border-white/30 overflow-hidden">
-        
-        <!-- Window Header -->
-        <div class="y2k-window-header flex items-center justify-between mb-4 border-b-2 border-white/20 pb-2">
-          <div class="flex items-center">
-            <div class="h-3 w-3 rounded-full bg-pink-400 mr-1.5"></div>
-            <div class="h-3 w-3 rounded-full bg-yellow-400 mr-1.5"></div>
-            <div class="h-3 w-3 rounded-full bg-green-400"></div>
-          </div>
-          <h2 class="text-white font-bold tracking-wider text-sm">system_error.exe</h2>
-          <div class="w-10"></div> <!-- Spacer for alignment -->
-        </div>
-        
-        <!-- Error Message -->
-        <div class="y2k-error-content text-center py-8 relative">
-          <!-- Glitch Effect Layers -->
-          <div class="y2k-glitch-text absolute inset-0 flex items-center justify-center text-[8rem] font-black text-red-500/30 animate-glitch-1">404</div>
-          <div class="y2k-glitch-text absolute inset-0 flex items-center justify-center text-[8rem] font-black text-cyan-500/30 animate-glitch-2">404</div>
-          
-          <!-- Main Error Number -->
-          <h1 class="text-[8rem] font-black text-white relative z-10 mb-4 animate-pulse">404</h1>
-          
-          <!-- Blinking Message -->
-          <div class="error-message mb-6">
-            <p class="text-xl font-bold text-yellow-300 animate-blink">ERROR: PAGE_NOT_FOUND</p>
-            <p class="text-white/70 mt-2">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-          </div>
-          
-          <!-- Action Buttons with Y2K styling -->
-          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/" class="y2k-button bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold py-2 px-6 rounded-md border border-white/30 shadow-lg transform hover:scale-105 transition flex items-center justify-center">
-              <span class="mr-2">⌂</span> Home
-            </a>
-            <button onclick="window.history.back()" class="y2k-button bg-gradient-to-r from-pink-600 to-purple-500 hover:from-pink-500 hover:to-purple-400 text-white font-bold py-2 px-6 rounded-md border border-white/30 shadow-lg transform hover:scale-105 transition flex items-center justify-center">
-              <span class="mr-2">←</span> Go Back
-            </button>
-          </div>
-        </div>
-        
-        <!-- Decorative Elements -->
-        <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div class="absolute top-6 left-2 w-1 h-1 bg-white/70 rounded-full animate-blink"></div>
-          <div class="absolute top-8 right-12 w-2 h-2 bg-pink-300/50 rounded-full animate-float"></div>
-          <div class="absolute bottom-16 left-20 w-3 h-1 bg-cyan-300/50 rounded-full animate-pulse"></div>
-          <div class="absolute bottom-8 right-6 w-1 h-3 bg-yellow-300/50 rounded-full animate-bounce-slow"></div>
-        </div>
-      </div>
+<Layout title="404 - Page Not Found">
+  <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-6xl md:text-8xl font-bold text-foreground mb-4">
+      404
+    </h1>
+    <p class="text-xl md:text-2xl text-muted-foreground mb-8">
+      Oops! The page you're looking for doesn't seem to exist.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a 
+        href="/"
+        class="inline-flex items-center justify-center px-6 py-3 border border-border bg-background hover:bg-secondary text-foreground text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      >
+        <Home class="w-4 h-4 mr-2" />
+        Go Home
+      </a>
+      <button 
+        onclick="window.history.back()"
+        class="inline-flex items-center justify-center px-6 py-3 border border-transparent bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      >
+        <ArrowLeft class="w-4 h-4 mr-2" />
+        Go Back
+      </button>
     </div>
   </div>
 </Layout>
 
 <style>
-  /* Y2K-specific animations */
-  @keyframes glitch-1 {
-    0%, 100% { transform: translate(0); }
-    20% { transform: translate(-5px, 5px); }
-    40% { transform: translate(-5px, -5px); }
-    60% { transform: translate(5px, 5px); }
-    80% { transform: translate(5px, -5px); }
-  }
-  
-  @keyframes glitch-2 {
-    0%, 100% { transform: translate(0); }
-    20% { transform: translate(5px, -5px); }
-    40% { transform: translate(5px, 5px); }
-    60% { transform: translate(-5px, -5px); }
-    80% { transform: translate(-5px, 5px); }
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes bounce-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  
-  .animate-glitch-1 {
-    animation: glitch-1 3s infinite;
-  }
-  
-  .animate-glitch-2 {
-    animation: glitch-2 2.5s infinite;
-  }
-  
-  .animate-blink {
-    animation: blink 1.5s infinite;
-  }
-  
-  .animate-float {
-    animation: float 3s infinite ease-in-out;
-  }
-  
-  .animate-bounce-slow {
-    animation: bounce-slow 2s infinite ease-in-out;
-  }
-  
-  /* Y2K window styling */
-  .y2k-window {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15), 
-                inset 0 0 15px rgba(255, 255, 255, 0.1);
-  }
-  
-  .y2k-error-container {
-    background-color: #000;
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 20%),
-      radial-gradient(circle at 85% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 20%);
-  }
-  
-  .y2k-button {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 
-                0 2px 4px -1px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
+  /* Minimalistyczne style, jeśli potrzebne dodatkowo do Tailwind */
+  /* (prawdopodobnie nie będą potrzebne, bo używamy utility classes) */
 </style> 
