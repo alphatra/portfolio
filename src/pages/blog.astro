@@ -1,16 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { NeonGradientCard } from '../components/magicui/neon-gradient-card'; // Import Magic UI Card
+import { Image } from 'astro:assets'; // Użyjemy Image dla optymalizacji
 
 // Pobierz wszystkie wpisy, sortuj od najnowszych
-const posts = (await getCollection('blog')).sort(
+const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
+// Wydziel najnowszy post i resztę
+const featuredPost = allPosts[0];
+const otherPosts = allPosts.slice(1);
+
 // Funkcja formatująca datę
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('pl-PL', { // Użyj polskiego formatu
+  return date.toLocaleDateString('pl-PL', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -19,73 +23,93 @@ const formatDate = (date: Date) => {
 ---
 <Layout title="Blog - Gracjan" description="Najnowsze wpisy na blogu Gracjana Ziemiańskiego.">
   <div class="container mx-auto px-4 py-16">
-    <h1 id="page-heading" tabindex="-1" class="text-4xl md:text-5xl font-bold mb-12 text-center text-foreground">
-      <span class="y2k-header">Blog</span>
-    </h1>
+    <header class="mb-16 text-center">
+      <h1 id="page-heading" tabindex="-1" class="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        Blog
+      </h1>
+      <p class="text-lg text-muted-foreground">Najnowsze historie, poradniki i przemyślenia.</p>
+    </header>
 
-    {posts.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <a href={`/blog/${post.slug}/`} class="block group focus:outline-none focus:ring-2 focus:ring-accent focus:rounded-lg">
-            <NeonGradientCard
-              className="flex flex-col h-full p-6 cursor-pointer transition-transform duration-300 group-hover:scale-[1.02]"
-              borderRadius={10}
-              neonColors={{ firstColor: '#a259ff', secondColor: '#ff7a9b' }} // Dopasuj kolory do stylu
-            >
-              <div class="flex-grow">
+    {featuredPost && (
+      <section class="mb-16">
+        <a href={`/blog/${featuredPost.slug}/`} class="block group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:rounded-lg">
+          <article class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {featuredPost.data.heroImage && (
+              <div class="overflow-hidden rounded-lg">
+                <img 
+                  src={featuredPost.data.heroImage} 
+                  alt="" 
+                  class="w-full h-64 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy" 
+                />
+              </div>
+            )}
+            <div class={featuredPost.data.heroImage ? "" : "md:col-span-2 text-center"}>
+              <p class="text-sm text-muted-foreground mb-2">
+                {formatDate(featuredPost.data.pubDate)}
+              </p>
+              <h2 class="text-2xl md:text-3xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
+                {featuredPost.data.title}
+              </h2>
+              <p class="text-md text-foreground/80 mb-4 line-clamp-3">
+                {featuredPost.data.description}
+              </p>
+              <span class="text-sm font-medium text-primary group-hover:underline">
+                Czytaj dalej →
+              </span>
+            </div>
+          </article>
+        </a>
+      </section>
+    )}
+
+    {otherPosts.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-semibold mb-8 text-foreground">Wszystkie wpisy</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {otherPosts.map((post) => (
+            <a href={`/blog/${post.slug}/`} class="block group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:rounded-lg">
+              <article class="flex flex-col h-full bg-card border border-border rounded-lg overflow-hidden transition-shadow hover:shadow-md">
                 {post.data.heroImage && (
-                  <img 
-                    src={post.data.heroImage}
-                    alt="" 
-                    class="w-full h-40 object-cover rounded-md mb-4 border border-border/20"
-                    loading="lazy"
-                  />
+                  <div class="aspect-video overflow-hidden">
+                    <img 
+                      src={post.data.heroImage} 
+                      alt="" 
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                      loading="lazy"
+                    />
+                  </div>
                 )}
-                <h2 class="text-xl font-semibold mb-2 text-foreground group-hover:text-accent transition-colors">
-                  {post.data.title}
-                </h2>
-                <p class="text-sm text-muted-foreground mb-3">
-                  {formatDate(post.data.pubDate)}
-                </p>
-                <p class="text-sm text-foreground/80 line-clamp-3">
-                  {post.data.description}
-                </p>
-              </div>
-              <div class="mt-4 text-right">
-                <span class="text-xs font-semibold text-accent group-hover:underline">
-                  Czytaj dalej →
-                </span>
-              </div>
-            </NeonGradientCard>
-          </a>
-        ))}
-      </div>
-    ) : (
-      <p class="text-center text-muted-foreground">Na razie brak wpisów na blogu.</p>
+                <div class="p-6 flex flex-col flex-grow">
+                  <p class="text-xs text-muted-foreground mb-2">
+                    {formatDate(post.data.pubDate)}
+                  </p>
+                  <h3 class="text-lg font-semibold mb-2 text-foreground flex-grow group-hover:text-primary transition-colors">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm text-foreground/70 mb-4 line-clamp-2 flex-grow">
+                    {post.data.description}
+                  </p>
+                  <div class="mt-auto text-right">
+                    <span class="text-xs font-medium text-primary group-hover:underline">
+                      Czytaj dalej →
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {allPosts.length === 0 && (
+      <p class="text-center text-muted-foreground py-16">Na razie brak wpisów na blogu.</p>
     )}
   </div>
 </Layout>
 
 <style>
-  .y2k-header {
-    display: inline-block;
-    /* Subtelny efekt Y2K dla nagłówka */
-    position: relative;
-    color: var(--foreground);
-  }
-  .y2k-header::before {
-    content: 'Blog';
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    color: var(--accent);
-    opacity: 0.5;
-    z-index: -1;
-    filter: blur(1px);
-  }
-
-  /* Opcjonalnie: subtelny gradient tła dla całej sekcji */
-  .container {
-    /* background: radial-gradient(circle at top left, rgba(162, 89, 255, 0.05), transparent 40%); */
-  }
+  /* Usunięto style Y2K dla nagłówka i NeonGradientCard */
+  /* Można dodać inne subtelne style, jeśli potrzebne */
 </style> 
