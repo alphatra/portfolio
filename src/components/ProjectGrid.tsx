@@ -40,18 +40,22 @@ interface ProjectGridProps {
 }
 
 export default function ProjectGrid({ githubRepos, githubError, filters }: ProjectGridProps) {
-  const [activeFilter, setActiveFilter] = useState(filters[0] || 'All');
+  // Build filters dynamically from languages (fallback to All)
+  const dynamicFilters = useMemo(() => {
+    const langs = Array.from(new Set((githubRepos || []).map(r => r.language).filter(Boolean))) as string[];
+    return ['All', ...langs];
+  }, [githubRepos]);
+  const [activeFilter, setActiveFilter] = useState(dynamicFilters[0] || 'All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'updated' | 'stars' | 'name'>('updated');
 
   const filteredRepos = useMemo(() => {
     let repos = [...githubRepos];
 
-    // --- Filtering Logic (placeholder - requires mapping repos to filters) ---
-    // For a real implementation, you'd filter based on repo.topics or a predefined mapping
-    // Example: if (activeFilter !== 'All') {
-    //   repos = repos.filter(repo => repo.topics?.includes(activeFilter.toLowerCase().replace(' ', '-'))));
-    // }
+    // Filter by language if not 'All'
+    if (activeFilter !== 'All') {
+      repos = repos.filter(repo => (repo.language || '') === activeFilter);
+    }
 
     // --- Search Logic ---
     if (searchQuery.trim() !== '') {
@@ -84,8 +88,8 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
         {/* Filters */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-gray-500 dark:text-gray-400 mr-2">Filter:</span>
-          {filters.map((filter) => (
+          <span className="text-gray-500 dark:text-gray-400 mr-2">Filtr:</span>
+          {dynamicFilters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
@@ -104,7 +108,7 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
         <div className="relative flex items-center gap-3">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Szukaj..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-neutral-100 dark:bg-gray-800/50 border border-neutral-300 dark:border-gray-700 rounded-full pl-4 pr-10 py-1 text-sm text-neutral-800 dark:text-gray-300 placeholder-neutral-500 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-neon-blue focus:border-transparent dark:focus:border-transparent w-48"
@@ -114,14 +118,14 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
           </svg>
 
           <select
-            aria-label="Sort projects"
+            aria-label="Sortuj projekty"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
             className="bg-neutral-100 dark:bg-gray-800/50 border border-neutral-300 dark:border-gray-700 rounded-full px-3 py-1 text-sm text-neutral-800 dark:text-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-neon-blue"
           >
-            <option value="updated">Recently Updated</option>
-            <option value="stars">Most Stars</option>
-            <option value="name">Name A→Z</option>
+            <option value="updated">Niedawno aktualizowane</option>
+            <option value="stars">Najwięcej gwiazdek</option>
+            <option value="name">Nazwa A→Z</option>
           </select>
         </div>
       </div>
@@ -151,7 +155,7 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
           ))
         ) : (
           <div className="col-span-full text-neutral-500 dark:text-gray-400 text-center py-8">
-            {searchQuery.trim() !== '' ? 'No projects match your search.' : 'No projects found or still loading...'}
+            {searchQuery.trim() !== '' ? 'Brak projektów pasujących do wyszukiwania.' : 'Brak projektów lub trwa ładowanie…'}
           </div>
         )}
       </div>
