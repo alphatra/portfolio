@@ -64,6 +64,21 @@ export const SearchModal: React.FC<SearchModalProps> = ({ open, onOpenChange }) 
             "focus:outline-none flex-shrink-0"
           )}
         />
+        {/* Help row: keyboard hints and close button */}
+        <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-500 border-b border-gray-800">
+          <div className="flex items-center gap-3">
+            <span>Enter: otwórz</span>
+            <span>↑↓: nawigacja</span>
+            <span>Esc: zamknij</span>
+          </div>
+          <button
+            onClick={() => onOpenChange(false)}
+            className="text-gray-400 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
+            aria-label="Zamknij wyszukiwarkę"
+          >
+            Zamknij
+          </button>
+        </div>
         <Command.List className="max-h-[400px] overflow-y-auto p-2 flex-grow">
           <Command.Empty className="p-4 text-center text-gray-500">No results found.</Command.Empty>
 

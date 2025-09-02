@@ -59,14 +59,24 @@ interface GitHubCardProps {
 
 export const GitHubCard: React.FC<GitHubCardProps> = ({ className }) => { // Destructure className
   const [stats, setStats] = React.useState<{stars: number; followers: number; public_repos: number; html_url?: string; login?: string}>({stars: 0, followers: 0, public_repos: 0});
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   React.useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const res = await fetch('/api/github-stats?user=alphatra');
         const data = await res.json();
-        setStats(data);
+        if (res.ok) {
+          setStats(data);
+          setError(null);
+        } else {
+          setError('Nie udało się pobrać statystyk GitHub.');
+        }
       } catch (e) {
-        // keep defaults
+        setError('Wystąpił błąd sieci.');
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
@@ -85,12 +95,26 @@ export const GitHubCard: React.FC<GitHubCardProps> = ({ className }) => { // Des
           <h3 className="text-lg font-semibold text-foreground">GitHub Activity</h3>
           <Github className="w-6 h-6 text-foreground/60" />
         </div>
-        <div className="text-sm text-foreground/80 grid grid-cols-3 gap-3 mb-3">
-          <div><span className="text-foreground/60">Stars</span><div className="font-semibold">{stats.stars}</div></div>
-          <div><span className="text-foreground/60">Followers</span><div className="font-semibold">{stats.followers}</div></div>
-          <div><span className="text-foreground/60">Repos</span><div className="font-semibold">{stats.public_repos}</div></div>
-        </div>
-        <a href={stats.html_url || 'https://github.com/alphatra'} target="_blank" rel="noopener noreferrer" className="text-xs accent-underline focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">View on GitHub</a>
+        {loading ? (
+          <p className="text-sm text-foreground/60" aria-live="polite">Ładowanie statystyk…</p>
+        ) : error ? (
+          <div className="text-sm text-red-400" role="alert" aria-live="assertive">
+            {error} <button onClick={() => {
+              setError(null);
+              setLoading(true);
+              fetch('/api/github-stats?user=alphatra').then(r=>r.json()).then(d=>{ setStats(d); setLoading(false); }).catch(()=>{ setLoading(false); setError('Ponownie nie udało się pobrać.'); });
+            }} className="underline ml-1">Spróbuj ponownie</button>
+          </div>
+        ) : (
+          <>
+            <div className="text-sm text-foreground/80 grid grid-cols-3 gap-3 mb-3">
+              <div><span className="text-foreground/60">Gwiazdki</span><div className="font-semibold">{stats.stars}</div></div>
+              <div><span className="text-foreground/60">Obserwujący</span><div className="font-semibold">{stats.followers}</div></div>
+              <div><span className="text-foreground/60">Repozytoria</span><div className="font-semibold">{stats.public_repos}</div></div>
+            </div>
+            <a href={stats.html_url || 'https://github.com/alphatra'} target="_blank" rel="noopener noreferrer" className="text-xs accent-underline focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">Zobacz na GitHub →</a>
+          </>
+        )}
       </div>
       {/* Add BorderBeam with default props */}
       <BorderBeam size={250} duration={12} delay={9} colorFrom="hsl(var(--accent))" colorTo="hsl(var(--primary))" />
