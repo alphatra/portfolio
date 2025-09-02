@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import ResearchCard from './ResearchCard'; // Import the card component
+import ModernProjectCard from './ModernProjectCard';
 import { cn } from '@/lib/utils';
 
 // Define formatDate function directly within the component file
@@ -26,8 +26,11 @@ type GitHubRepo = {
   owner: { login: string };
   updated_at: string;
   html_url: string;
+  homepage?: string | null;
+  language?: string | null;
   // Add topics if available and needed for filtering
   topics?: string[];
+  stargazers_count?: number;
 };
 
 interface ProjectGridProps {
@@ -39,9 +42,10 @@ interface ProjectGridProps {
 export default function ProjectGrid({ githubRepos, githubError, filters }: ProjectGridProps) {
   const [activeFilter, setActiveFilter] = useState(filters[0] || 'All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'updated' | 'stars' | 'name'>('updated');
 
   const filteredRepos = useMemo(() => {
-    let repos = githubRepos;
+    let repos = [...githubRepos];
 
     // --- Filtering Logic (placeholder - requires mapping repos to filters) ---
     // For a real implementation, you'd filter based on repo.topics or a predefined mapping
@@ -59,13 +63,25 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
       );
     }
 
+    // --- Sort Logic ---
+    switch (sortBy) {
+      case 'stars':
+        repos.sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
+        break;
+      case 'name':
+        repos.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      default:
+        repos.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+    }
+
     return repos;
-  }, [githubRepos, activeFilter, searchQuery]);
+  }, [githubRepos, activeFilter, searchQuery, sortBy]);
 
   return (
     <div>
-      {/* Filter and Search UI - Updated light mode styles */}
-      <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
+      {/* Controls */}
+      <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
         {/* Filters */}
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-gray-500 dark:text-gray-400 mr-2">Filter:</span>
@@ -84,8 +100,8 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
             </button>
           ))}
         </div>
-        {/* Search Input */}
-        <div className="relative">
+        {/* Search + Sort */}
+        <div className="relative flex items-center gap-3">
           <input
             type="text"
             placeholder="Search..."
@@ -96,6 +112,17 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-500 dark:text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
+
+          <select
+            aria-label="Sort projects"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            className="bg-neutral-100 dark:bg-gray-800/50 border border-neutral-300 dark:border-gray-700 rounded-full px-3 py-1 text-sm text-neutral-800 dark:text-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-neon-blue"
+          >
+            <option value="updated">Recently Updated</option>
+            <option value="stars">Most Stars</option>
+            <option value="name">Name A→Z</option>
+          </select>
         </div>
       </div>
 
@@ -107,17 +134,19 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
       )}
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         {filteredRepos.length > 0 ? (
           filteredRepos.map(repo => (
-            <ResearchCard
+            <ModernProjectCard
               key={repo.id}
               title={repo.name}
               description={repo.description}
-              author={repo.owner.login}
-              date={formatDate(repo.updated_at)}
-              url={repo.html_url}
-              // imageUrl={...} // Add placeholder/image logic if needed
+              language={repo.language || null}
+              topics={repo.topics || []}
+              stars={repo.stargazers_count}
+              repoUrl={repo.html_url}
+              homepage={repo.homepage}
+              updatedAt={repo.updated_at}
             />
           ))
         ) : (

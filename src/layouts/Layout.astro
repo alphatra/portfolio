@@ -16,7 +16,7 @@ interface Props {
 const { 
 	title,
 	description = "Portfolio Gracjana - Poznaj moje projekty i umiejętności jako programisty webowego.",
-	image = '/og-image.png'
+	image = '/favicon.svg'
 } = Astro.props;
 
 const canonicalUrl = Astro.url.toString();
@@ -34,6 +34,7 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalUrl} />
+		<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
 		{/* --- Open Graph / Facebook --- */}
 		<meta property="og:title" content={ogTitle} />
@@ -53,9 +54,9 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageAbsoluteUrl} />
 
-		<title>{title}</title>
+        <title>{title}</title>
 
-		{/* Font preload script */}
+        {/* Font preload script (prefetch zamiast dynamicznego wstrzykiwania w head dla stabilności SSR) */}
 		<script>
 			// Preload critical fonts
 			if (typeof window !== 'undefined') {
@@ -86,14 +87,26 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 			}
 		</script>
 
+		{/* JSON-LD Organization */}
+		<script type="application/ld+json" is:inline>{JSON.stringify({
+		  '@context': 'https://schema.org',
+		  '@type': 'Person',
+		  name: 'Gracjan Ziemiański',
+		  url: Astro.site?.toString?.() || 'https://portfolio-app-one-ebon.vercel.app',
+		  sameAs: [
+		    'https://github.com/alphatra',
+		    'https://www.linkedin.com/in/gracjan-ziemiański/'
+		  ]
+		})}</script>
+
 		<ViewTransitions />
 	</head>
 	<body class="relative h-full font-sans flex flex-col">
-		<header role="banner">
+        <header role="banner" aria-label="Główna nawigacja i ustawienia">
 			<Navbar client:load />
 		</header>
 		
-		<a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
+        <a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">Pomiń do treści głównej</a>
 
 		<main id="main-content" role="main" class="flex-grow pt-16">
 			<slot />

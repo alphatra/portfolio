@@ -12,7 +12,7 @@ export function LetterboxdCard() {
       rel="noopener noreferrer"
       className={cn(
         'minimal-block flex flex-col items-start justify-between p-6 h-full group',
-        'transition-colors hover:bg-accent/10'
+        'transition-colors hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm'
       )}
     >
       <div>

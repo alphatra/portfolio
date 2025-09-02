@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme'); // Import default theme
+import defaultTheme from 'tailwindcss/defaultTheme'; // Import default theme (ESM)
 
 export default {
   darkMode: 'class',

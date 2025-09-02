@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Mail, Send } from 'lucide-react';
 
 export function ContactCard() {
-  const emailAddress = 'your.email@example.com'; // <-- Replace with your actual email
+  const emailAddress = 'zieemianskigracjna@icloud.com';
   const contactPageUrl = '/contact'; // <-- Optional: Link to a contact page/form
 
   return (
@@ -14,14 +14,14 @@ export function ContactCard() {
         <p className="text-sm text-foreground/60 mb-3">
           Have a question or want to collaborate? Send me a message.
         </p>
-        <a href={`mailto:${emailAddress}`} className="text-sm accent-underline inline-block">
+        <a href={`mailto:${emailAddress}`} className="text-sm accent-underline inline-block focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">
           {emailAddress}
         </a>
       </div>
       {contactPageUrl && (
         <a
           href={contactPageUrl}
-          className="text-sm accent-underline self-end mt-3 inline-flex items-center gap-1"
+          className="text-sm accent-underline self-end mt-3 inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
         >
           <Send className="w-4 h-4" /> Contact Form →
         </a>

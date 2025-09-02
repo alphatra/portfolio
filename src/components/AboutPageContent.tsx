@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Github, Facebook, Languages, GraduationCap, Briefcase, Settings } from 'lucide-react';
 import { cn } from "@/lib/utils"; 
 
@@ -110,43 +110,82 @@ const listVariants = {
 // --- Section Title Component ---
 interface SectionTitleProps {
   children: React.ReactNode;
+  id?: string;
 }
-const SectionTitle: React.FC<SectionTitleProps> = ({ children }) => (
-  <h2 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-green">
+const SectionTitle: React.FC<SectionTitleProps> = ({ children, id }) => (
+  <h2
+    id={id}
+    className="text-2xl md:text-3xl font-semibold mb-8 md:mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground to-accent"
+  >
     {children}
   </h2>
 );
 
 // --- Main Component ---
 const AboutPageContent: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div className="px-4 py-16 md:py-24 min-h-screen relative space-y-16 md:space-y-24">
       
       {/* Header Section */}
       <motion.div 
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         variants={sectionVariants}
         className="text-center"
       >
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-          Gracjan Ziemiański
+        {/* Language Selector */}
+        <div className="flex justify-center space-x-4 text-muted-foreground text-sm mb-2">
+          <span>EN</span>
+          <span>PL</span>
+          <span>IT</span>
+          <span>DE</span>
+        </div>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground">
+          GRACJAN ZIEMIANSKI
         </h1>
-        <p className="text-xl md:text-2xl text-neutral-400">Full Stack Developer & AI Enthusiast</p>
+        <p className="text-xl md:text-2xl text-muted-foreground">Full Stack Developer</p>
+        <p className="text-lg md:text-xl text-muted-foreground">CREATIVE & AMBITIOUS</p>
+        <p className="text-base md:text-lg text-muted-foreground mb-4">Challenges drive me to achieve ambitious goals.</p>
+        <a
+          href="https://cv-gracjanziemianski.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block text-accent hover:underline"
+        >
+          View My CV
+        </a>
+        {/* Links Row */}
+        <div className="flex justify-center space-x-8 mt-4">
+          <a
+            href={contactInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline"
+          >
+            GITHUB
+          </a>
+          <a
+            href="/projects"
+            className="text-accent hover:underline"
+          >
+            MY PROJECTS
+          </a>
+        </div>
       </motion.div>
 
       {/* About Me Section */}
       <motion.section 
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         variants={sectionVariants}
         className="max-w-3xl mx-auto text-center"
         aria-labelledby="about-me-title"
       >
-        <SectionTitle>About Me</SectionTitle>
+        <SectionTitle id="about-me-title">About Me</SectionTitle>
         <motion.p 
           variants={itemVariants}
-          className="text-neutral-300 text-lg leading-relaxed"
+          className="text-foreground/90 text-lg leading-relaxed"
         >
           {aboutMeText}
         </motion.p>
@@ -154,12 +193,12 @@ const AboutPageContent: React.FC = () => {
 
       {/* Expertise Section */}
       <motion.section
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         variants={sectionVariants}
         aria-labelledby="expertise-title"
       >
-        <SectionTitle>Expertise</SectionTitle>
+        <SectionTitle id="expertise-title">Expertise</SectionTitle>
         <motion.div 
           variants={listVariants}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-4xl mx-auto"
@@ -170,7 +209,7 @@ const AboutPageContent: React.FC = () => {
               variants={itemVariants} 
               className="bg-card/50 border border-border/30 rounded-lg p-3 text-center hover:border-neon-blue/50 transition-colors duration-200"
             >
-              <p className="text-sm font-medium text-neutral-200">{skill.name}</p>
+              <p className="text-sm font-medium text-foreground">{skill.name}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -181,26 +220,26 @@ const AboutPageContent: React.FC = () => {
         
         {/* Work Experience Section */}
         <motion.section
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           animate="visible"
           variants={sectionVariants}
           aria-labelledby="work-experience-title"
         >
-          <SectionTitle>Work Experience</SectionTitle>
+          <SectionTitle id="work-experience-title">Work Experience</SectionTitle>
           <motion.div variants={listVariants} className="space-y-8">
             {workExperience.map((exp, index) => (
               <motion.div 
                 key={index} 
                 variants={itemVariants} 
-                className="relative pl-10 border-l-2 border-neon-blue/30 hover:border-neon-blue/70 transition-colors duration-200"
+                className="relative pl-10 border-l-2 border-neon-blue/50 hover:border-neon-blue/70 transition-colors duration-200"
               >
                  {/* Icon absolutely positioned */}
                  <div className="absolute -left-4 top-1 p-1.5 bg-primary rounded-full text-primary-foreground">
                    {exp.icon || <Briefcase className="h-4 w-4" />}
                  </div>
-                 <h3 className="text-lg font-medium text-neutral-100 mb-1">{exp.title}</h3>
+                 <h3 className="text-lg font-medium text-foreground mb-1">{exp.title}</h3>
                  <p className="text-sm font-semibold text-accent mb-1">{exp.company} / {exp.years}</p>
-                 <p className="text-neutral-300 text-sm">
+                 <p className="text-muted-foreground text-sm">
                    {exp.description}
                  </p>
               </motion.div>
@@ -210,26 +249,26 @@ const AboutPageContent: React.FC = () => {
 
         {/* Education Section */}
         <motion.section
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           animate="visible"
           variants={sectionVariants}
           aria-labelledby="education-title"
         >
-          <SectionTitle>Education</SectionTitle>
+          <SectionTitle id="education-title">Education</SectionTitle>
           <motion.div variants={listVariants} className="space-y-8">
             {education.map((edu, index) => (
               <motion.div 
                 key={index} 
                 variants={itemVariants} 
-                className="relative pl-10 border-l-2 border-neon-green/30 hover:border-neon-green/70 transition-colors duration-200"
+                className="relative pl-10 border-l-2 border-neon-green/50 hover:border-neon-green/70 transition-colors duration-200"
               >
                 {/* Icon absolutely positioned */}
                 <div className="absolute -left-4 top-1 p-1.5 bg-secondary rounded-full text-secondary-foreground">
                   {edu.icon || <GraduationCap className="h-4 w-4" />}
                 </div>
-                <h3 className="text-lg font-medium text-neutral-100 mb-1">{edu.title}</h3>
+                <h3 className="text-lg font-medium text-foreground mb-1">{edu.title}</h3>
                 <p className="text-sm font-semibold text-accent mb-1">{edu.institution} {edu.degree ? `(${edu.degree})` : ''}</p>
-                <p className="text-neutral-400 text-xs">{edu.years}</p>
+                <p className="text-muted-foreground text-xs">{edu.years}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -238,13 +277,13 @@ const AboutPageContent: React.FC = () => {
 
       {/* Languages Section */}
       <motion.section
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         variants={sectionVariants}
         className="max-w-3xl mx-auto"
         aria-labelledby="languages-title"
       >
-        <SectionTitle>Languages</SectionTitle>
+        <SectionTitle id="languages-title">Languages</SectionTitle>
         <motion.div 
           variants={listVariants}
           className="grid grid-cols-1 sm:grid-cols-2 gap-6"
@@ -259,8 +298,8 @@ const AboutPageContent: React.FC = () => {
                 {lang.icon || <Languages className="h-4 w-4" />}
               </div>
               <div>
-                <h4 className="font-medium text-neutral-100">{lang.name}</h4>
-                <p className="text-xs text-neutral-400">{lang.level}</p>
+                <h4 className="font-medium text-foreground">{lang.name}</h4>
+                <p className="text-xs text-muted-foreground">{lang.level}</p>
               </div>
             </motion.div>
           ))}
@@ -269,31 +308,31 @@ const AboutPageContent: React.FC = () => {
 
       {/* Contact Section */}
       <motion.div 
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
         variants={sectionVariants}
         className="max-w-3xl mx-auto text-center p-8 bg-card/50 border border-border/20 rounded-xl"
       >
-        <SectionTitle>Contact</SectionTitle>
+        <SectionTitle id="contact-title">Contact</SectionTitle>
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mb-6 text-neutral-300 text-sm">
-          <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">
+          <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">
             <Mail className="h-4 w-4" /> {contactInfo.email}
           </a>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-muted-foreground">
             <Phone className="h-4 w-4" /> {contactInfo.phone}
           </span>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-muted-foreground">
             <MapPin className="h-4 w-4" /> {contactInfo.address}
           </span>
         </div>
         <div className="flex justify-center items-center space-x-6">
-          <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-neutral-400 hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
+          <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-muted-foreground hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
             <Linkedin size={24} />
           </a>
-          <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-neutral-400 hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
+          <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-muted-foreground hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
             <Github size={24} />
           </a>
-          <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook Profile" className="text-neutral-400 hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
+          <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook Profile" className="text-muted-foreground hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm p-1">
             <Facebook size={24} />
           </a>
           {/* Add WhatsApp QR code image if available */}

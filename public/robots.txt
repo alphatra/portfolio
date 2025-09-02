@@ -1,0 +1,9 @@
+User-agent: *
+Disallow:
+
+# Allow crawling of all pages. Update if you need to block specific paths.
+
+Sitemap: https://portfolio-app-one-ebon.vercel.app/sitemap.xml
+Sitemap: https://portfolio-app-one-ebon.vercel.app/sitemap-index.xml
+
+

@@ -91,12 +91,13 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({ onClose })
         {/* Replaced Switch with a styled checkbox */}
         <input 
           type="checkbox"
-          role="switch" // Use role="switch" for semantics
+          role="switch"
           id="high-contrast-toggle"
           checked={isHighContrast}
           onChange={(e) => handleContrastChange(e.target.checked)}
           aria-label="Toggle high contrast mode"
-          className="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-gray-200 dark:bg-gray-700 checked:bg-primary dark:checked:bg-primary"
+          aria-checked={isHighContrast}
+          className="toggle-checkbox relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-gray-200 dark:bg-gray-700 checked:bg-primary dark:checked:bg-primary"
         />
         {/* Basic styling for the toggle switch appearance could be added here or in global CSS */}
         {/* Example inline style or dedicated class needed for the inner circle movement */}

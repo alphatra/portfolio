@@ -1,5 +1,5 @@
 import * as React from "react";
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Book, FolderGit2 } from 'lucide-react'; // Removed unused User, MessageSquare
 import GitHubCard from './GitHubCard';
 import SpotifyCard from './SpotifyCard'; // Import new card
@@ -21,6 +21,7 @@ const cardBaseStyle = cn(
 );
 
 export const BentoContainer: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
   // Animation variants (can be kept or removed if cards handle their own)
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +50,7 @@ export const BentoContainer: React.FC = () => {
       <motion.div
         className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]" // 3 columns, fixed row height example (adjust height as needed)
         variants={containerVariants}
-        initial="hidden"
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="visible"
       >
         {/* GitHub Card - Row 1, Span 2 */}

@@ -63,7 +63,7 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
           {/* Left side: Logo/Name Placeholder - Use foreground color */}
           <div className="text-xl font-bold text-foreground">
-            <a href="/" className="focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">Logo</a> {/* Replace with actual logo or name */}
+            <a href="/" className="focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm" aria-label="Przejdź do strony głównej">Logo</a> {/* Replace with actual logo or name */}
           </div>
 
           {/* Center: Navigation Links - Use foreground color, remove neon hover */}
@@ -85,9 +85,9 @@ export const Navbar: React.FC = () => {
             <input
               type="text"
               onClick={() => setIsSearchOpen(true)}
-              placeholder="Press Ctrl+K"
+              placeholder="Naciśnij Ctrl+K"
               readOnly
-              aria-label="Open search"
+              aria-label="Otwórz wyszukiwarkę"
               className="bg-muted border border-border rounded-md py-1 px-3 text-sm text-foreground placeholder:text-foreground/50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
             />
             
@@ -103,7 +103,7 @@ export const Navbar: React.FC = () => {
                 aria-expanded={isAccessibilityMenuOpen}
                 className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
               >
-                <Accessibility className="h-5 w-5 text-foreground" />
+                <Accessibility className="h-5 w-5 text-foreground" aria-hidden="true" />
               </button>
               {/* Accessibility Menu - Rendered conditionally */}
               {isAccessibilityMenuOpen && (

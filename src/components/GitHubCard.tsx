@@ -30,14 +30,24 @@ const CatMathBackground = () => (
       <text id="sqrt" x="0" y="12" fontSize="15" fill="currentColor">√</text>
     </defs>
 
-    {/* Repeat symbols - Adjust positions, scale, rotation for better pattern */}
-    <use href="#cat-face" x="10" y="10" transform="scale(1.5)"/>
-    <use href="#plus" x="50" y="30" />
-    <use href="#integral" x="80" y="70" transform="scale(1.2)"/>
-    <use href="#sqrt" x="30" y="90" />
-    <use href="#cat-face" x="100" y="110" transform="scale(0.8)"/>
-    <use href="#plus" x="150" y="80" transform="scale(1.5)"/>
-    {/* Add more repetitions for a denser pattern */}
+    {/* Denser tiled pattern */}
+    {Array.from({ length: 12 }).map((_, row) => (
+      <g key={`row-${row}`}>
+        {Array.from({ length: 16 }).map((__, col) => {
+          const baseX = col * 40;
+          const baseY = row * 30;
+          const mod = (row + col) % 3;
+          return (
+            <g key={`cell-${row}-${col}`}>
+              {mod === 0 && <use href="#cat-face" x={baseX + 10} y={baseY + 6} transform="scale(0.6)" />}
+              {mod === 1 && <use href="#integral" x={baseX + 8} y={baseY + 18} />}
+              {mod === 2 && <use href="#sqrt" x={baseX + 12} y={baseY + 16} />}
+              <use href="#plus" x={baseX + 24} y={baseY + 10} />
+            </g>
+          );
+        })}
+      </g>
+    ))}
 
   </svg>
 );
@@ -48,6 +58,18 @@ interface GitHubCardProps {
 }
 
 export const GitHubCard: React.FC<GitHubCardProps> = ({ className }) => { // Destructure className
+  const [stats, setStats] = React.useState<{stars: number; followers: number; public_repos: number; html_url?: string; login?: string}>({stars: 0, followers: 0, public_repos: 0});
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/github-stats?user=alphatra');
+        const data = await res.json();
+        setStats(data);
+      } catch (e) {
+        // keep defaults
+      }
+    })();
+  }, []);
   return (
     // Ensure relative and overflow-hidden are applied here or via className prop
     <div className={cn(
@@ -63,10 +85,12 @@ export const GitHubCard: React.FC<GitHubCardProps> = ({ className }) => { // Des
           <h3 className="text-lg font-semibold text-foreground">GitHub Activity</h3>
           <Github className="w-6 h-6 text-foreground/60" />
         </div>
-        <p className="text-sm text-foreground/60 mb-2">
-          Working on project-x, fixed bug #123, reviewed PR #456.
-        </p>
-        <a href="#" className="text-xs accent-underline">View on GitHub</a>
+        <div className="text-sm text-foreground/80 grid grid-cols-3 gap-3 mb-3">
+          <div><span className="text-foreground/60">Stars</span><div className="font-semibold">{stats.stars}</div></div>
+          <div><span className="text-foreground/60">Followers</span><div className="font-semibold">{stats.followers}</div></div>
+          <div><span className="text-foreground/60">Repos</span><div className="font-semibold">{stats.public_repos}</div></div>
+        </div>
+        <a href={stats.html_url || 'https://github.com/alphatra'} target="_blank" rel="noopener noreferrer" className="text-xs accent-underline focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">View on GitHub</a>
       </div>
       {/* Add BorderBeam with default props */}
       <BorderBeam size={250} duration={12} delay={9} colorFrom="hsl(var(--accent))" colorTo="hsl(var(--primary))" />

@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Linkedin } from 'lucide-react'; // Using Lucide for consistency
 
 export function LinkedInCard() {
-  const linkedInUrl = 'https://www.linkedin.com/in/your-profile'; // <-- Replace with your actual LinkedIn URL
+  const linkedInUrl = 'https://linkedin.com/in/gracjan-ziemiański/';
 
   return (
     <a
@@ -11,8 +11,8 @@ export function LinkedInCard() {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'minimal-block flex flex-col items-start justify-between p-6 h-full group', // Added group for potential hover effects
-        'transition-colors hover:bg-accent/10' // Subtle hover
+        'minimal-block flex flex-col items-start justify-between p-6 h-full group',
+        'transition-colors hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm'
       )}
     >
       <div>

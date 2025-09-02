@@ -4,32 +4,20 @@ import { cn } from '@/lib/utils';
 import { Play, Pause, SkipForward, Music } from 'lucide-react'; // Import icons
 
 export const LastFmCard: React.FC = () => {
-  const [nowPlaying, setNowPlaying] = React.useState({ artist: '', song: '', albumArtUrl: '' });
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const apiKey = import.meta.env.PUBLIC_LASTFM_API_KEY;
-  const username = import.meta.env.PUBLIC_LASTFM_USERNAME;
+  const [nowPlaying, setNowPlaying] = React.useState({ artist: '', song: '', albumArtUrl: '', nowPlaying: false });
 
   React.useEffect(() => {
     async function fetchNowPlaying() {
       try {
-        const res = await fetch(
-          `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&limit=1&format=json`
-        );
+        const res = await fetch('/api/lastfm-nowplaying');
         const data = await res.json();
-        const track = data.recenttracks.track[0];
-        const isNowPlaying = track['@attr']?.nowplaying === 'true';
-        setNowPlaying({
-          artist: track.artist['#text'],
-          song: track.name,
-          albumArtUrl: track.image.find((img: any) => img.size === 'medium')['#text'] || ''
-        });
-        setIsPlaying(isNowPlaying);
+        setNowPlaying(data);
       } catch (err) {
-        console.error('Failed to fetch Last.fm data', err);
+        // fallback stays empty
       }
     }
     fetchNowPlaying();
-  }, [apiKey, username]);
+  }, []);
 
   return (
     <BentoCard className={cn(
@@ -58,7 +46,7 @@ export const LastFmCard: React.FC = () => {
             <p className="text-sm text-gray-400 truncate" title={nowPlaying.artist}>{nowPlaying.artist}</p>
             {/* Placeholder Controls with icons */}
             <div className="flex space-x-3 mt-3 text-gray-400">
-              {isPlaying ? (
+              {nowPlaying.nowPlaying ? (
                 <Pause className="w-5 h-5 hover:text-white cursor-pointer" />
               ) : (
                 <Play className="w-5 h-5 hover:text-white cursor-pointer" />
