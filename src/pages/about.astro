@@ -1,12 +1,58 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// Removed import for AboutMeComponent as it's not used here
-import AboutPageContent from '../components/AboutPageContent.tsx';
+import { getEntry } from 'astro:content';
+import Classic, { type AboutData } from '@/components/about/Classic';
+import CVStandard from '@/components/about/CVStandard';
+
+const profile = await getEntry('profileAbout','about');
+const about = profile?.data as any;
+// map localized fields
+const locale = Astro.currentLocale || 'pl';
+const data: AboutData & { achievements?: string[] } = {
+  name: about?.name ?? 'GRACJAN ZIEMIANSKI',
+  specialty: about?.specialty?.[locale] ?? about?.specialty?.en ?? 'Full‑Stack Developer',
+  aboutMe: about?.aboutMe?.[locale] ?? about?.aboutMe?.en ?? '',
+  links: about?.links,
+  contact: about?.contact,
+  experience: (about?.experience || []).map((e: any) => ({
+    title: e.title,
+    company: e.company,
+    years: e.years,
+    desc: e.desc?.[locale] ?? e.desc?.en ?? undefined,
+  })),
+  education: about?.education || [],
+  skills: about?.skills || [],
+  languages: (about?.languages || []).map((l: any) => ({ name: l.name?.[locale] ?? l.name?.en, level: l.level?.[locale] ?? l.level?.en })),
+  projects: (about?.projects || []).map((p: any) => ({
+    title: p.title,
+    stage: p.stage,
+    stack: p.stack,
+    desc: p.desc?.[locale] ?? p.desc?.en,
+    link: p.link,
+  })),
+  certificates: about?.certificates || [],
+  softSkills: about?.softSkills || [],
+  interests: (about?.interests || []).map((it: any) => ({ title: it.title, desc: it.desc?.[locale] ?? it.desc?.en })),
+  gdpr: about?.gdpr?.[locale] ?? about?.gdpr?.en,
+  achievements: about?.achievements || []
+};
+const view = about?.view ?? 'classic';
+const qpView = Astro.url.searchParams.get('view');
+const allowed = new Set(['classic','cv']);
+const activeView: 'classic' | 'cv' = (qpView && allowed.has(qpView)) ? (qpView as any) : (allowed.has(view) ? (view as any) : 'classic');
+function makeHref(v: string) {
+  const u = new URL(Astro.url);
+  u.searchParams.set('view', v);
+  return u.pathname + (u.search ? u.search : '');
+}
 ---
-
-<Layout title="About Me - Gracjan Ziemiański">
-  <AboutPageContent client:visible /> 
-  {/* Using client:visible to enable animations and interactions */}
-</Layout>
-
-{/* Removed the second Layout block that was causing duplication */} 
+<Layout title={Astro.currentLocale === 'pl' ? 'O mnie - Gracjan Ziemiański' : 'About Me - Gracjan Ziemiański'}>
+  <div class="container mx-auto px-4 pt-8">
+    <div role="tablist" aria-label="Wybór widoku" class="mb-6 inline-flex rounded-lg border border-border/40 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+      <a role="tab" aria-selected={activeView==='classic'} href={makeHref('classic')} class={`px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-neon-blue/75 rounded-l-lg ${activeView==='classic' ? 'bg-background text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Classic</a>
+      <a role="tab" aria-selected={activeView==='cv'} href={makeHref('cv')} class={`px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-neon-blue/75 rounded-r-lg ${activeView==='cv' ? 'bg-background text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>CV</a>
+    </div>
+  </div>
+  {activeView === 'classic' && (<Classic data={data} raw={about} currentLocale={Astro.currentLocale || 'pl'} client:visible />)}
+  {activeView === 'cv' && (<CVStandard data={data} raw={about} currentLocale={Astro.currentLocale || 'pl'} client:visible />)}
+</Layout> 

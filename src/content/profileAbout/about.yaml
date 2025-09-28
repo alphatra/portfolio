@@ -1,0 +1,245 @@
+view: classic
+name: "GRACJAN ZIEMIANSKI"
+specialty:
+  pl: "AI/ML Engineer (Computer Vision) · Fizyka Stosowana"
+  en: "AI/ML Engineer (Computer Vision) · Applied Physics"
+  de: "AI/ML‑Ingenieur (Computer Vision) · Angewandte Physik"
+  it: "Ingegnere AI/ML (Computer Vision) · Fisica Applicata"
+  zh: "AI/ML 工程师（计算机视觉）· 应用物理"
+aboutMe:
+  pl: |
+    Inżynier AI/ML z doświadczeniem w Computer Vision i zapleczem fizycznym. Buduję end‑to‑end modele (PyTorch/YOLO/Detectron2), projektuję i wdrażam API inference (Flask/FastAPI, Docker), dbam o dane i metryki. Łączę metody uczenia głębokiego z modelowaniem i weryfikacją eksperymentalną. Interesuję się MLOps i zastosowaniami AI w energetyce oraz projektach badawczych na styku informatyki i fizyki.
+  en: |
+    AI/ML Engineer with Computer Vision focus and a physics background. I build end‑to‑end models (PyTorch/YOLO/Detectron2), design and deploy inference APIs (Flask/FastAPI, Docker), and take care of data and metrics. I connect deep learning with modeling and experimental validation. Interested in MLOps and AI for energy and research.
+  de: |
+    KI/ML‑Ingenieur mit Fokus auf Computer Vision und physikalischem Hintergrund. End‑to‑End‑Modelle (PyTorch/YOLO/Detectron2), Inferenz‑APIs (Flask/FastAPI, Docker), Daten & Metriken, experimentelle Validierung.
+  it: |
+    Ingegnere AI/ML con focus su Computer Vision e background in fisica. Modelli end‑to‑end (PyTorch/YOLO/Detectron2), API di inferenza (Flask/FastAPI, Docker), dati e metriche, validazione sperimentale.
+  zh: |
+    具有物理背景的 AI/ML 工程师，专注于计算机视觉。构建端到端模型（PyTorch/YOLO/Detectron2），设计与部署推理 API（Flask/FastAPI，Docker），重视数据与指标，并进行实验验证。关注 MLOps 以及 AI 在能源与科研中的应用。
+links:
+  github: "https://github.com/alphatra"
+  linkedin: "https://linkedin.com/in/gracjan-ziemianski/"
+contact:
+  email: "zieemianskigracjan@icloud.com"
+  phone: "+48 511 235 401"
+  address: "Italy, Torino 10126"
+experience:
+  - title: "Junior AI Specialist — Computer Vision"
+    company: "Bright Coders' Factory & Tauron"
+    years: "2024‑09 – present"
+    desc:
+      pl: "AI specialist: integracje CV (YOLOv8, DEIM, Detectron2) dla odczytu liczników. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms (Android NNAPI), CPU=88 ms. API inference (FastAPI/Flask + Docker), med. response −38%, ~45 req/s (t4g.medium). Flutter jako interfejs."
+      en: "AI specialist: CV integrations (YOLOv8, DEIM, Detectron2) for meter reading. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms (Android NNAPI), CPU=88 ms. Inference API (FastAPI/Flask + Docker), median response −38%, ~45 req/s (t4g.medium). Flutter as UI."
+      de: "Flutter‑Apps, YOLOv8‑Integration, API‑Design, Tests."
+      it: "App Flutter, integrazione YOLOv8, progettazione API, testing."
+      zh: "AI 专家：将 CV 模型（YOLOv8、DEIM、Detectron2）集成到电表读数系统。mAP50=0.94，mAP50‑95=0.76；边缘端延迟=34 ms（Android NNAPI），CPU=88 ms。推理 API（FastAPI/Flask + Docker），中位响应降低 38%，~45 req/s（t4g.medium）。Flutter 作为前端。"
+  - title: "Full‑stack Intern (Mobile Dev)"
+    company: "Bright Coders' Factory"
+    years: "2024‑06 – 2024‑09"
+    desc:
+      pl: "Mobile dev: Flutter (Android/iOS), web (Next.js), trening YOLOv8, budowa API (Flask), testy i debugowanie."
+      en: "Mobile dev: Flutter (Android/iOS), web (Next.js), YOLOv8 training, API (Flask), testing & debugging."
+      de: "Web/Mobile, YOLOv8‑Training, APIs, Tests und Debugging."
+      it: "Web/mobile, training YOLOv8, API, test e debug."
+      zh: "移动开发：Flutter（Android/iOS），Web（Next.js），YOLOv8 训练，Flask API，测试与调试。"
+  - title: "System and Network Configuration Intern"
+    company: "T.H. ALPLAST"
+    years: "2019‑11 – 2019‑12"
+    desc:
+      pl: "Konfiguracja systemów IT, dostosowywanie oprogramowania, sieć, bazy danych."
+      en: "Configuring IT systems, software customization, network settings, database management."
+  - title: "President – Pointer UWR (Student Society)"
+    company: "University of Wroclaw"
+    years: "2023‑10 – present"
+    desc:
+      pl: "Organizacja spotkań, wymiana wiedzy, prowadzenie projektów IT."
+      en: "Organizing meetups, knowledge sharing, leading IT projects."
+education:
+  - title: "Applied Computer Science and Measurement Systems"
+    institution: "University of Wroclaw"
+    degree: "Bachelor"
+    years: "2022 – 2026"
+  - title: "MOST Student Exchange – Computer Science"
+    institution: "AGH University of Krakow"
+    degree: "Bachelor"
+    years: "2025‑09 – 2026‑02"
+  - title: "ERASMUS – Applied Physics (UniTo)"
+    institution: "University of Turin"
+    degree: "Bachelor (exchange)"
+    years: "2024‑09‑20 – 2025‑02‑28"
+skills:
+  - "Python"
+  - "PyTorch"
+  - "Detectron2"
+  - "YOLOv8"
+  - "OpenCV"
+  - "NumPy"
+  - "Pandas"
+  - "scikit‑learn"
+  - "FastAPI"
+  - "Flask"
+  - "Docker"
+  - "SQL / MySQL"
+  - "Label Studio"
+  - "Git"
+  - "Linux"
+  - "CUDA"
+  - "Next.js"
+  - "Flutter"
+languages:
+  - name:
+      pl: "Polski"
+      en: "Polish"
+      de: "Polnisch"
+      it: "Polacco"
+      zh: "波兰语"
+    level:
+      pl: "Ojczysty"
+      en: "Native"
+      de: "Muttersprache"
+      it: "Madrelingua"
+      zh: "母语"
+  - name:
+      pl: "Angielski"
+      en: "English"
+      de: "Englisch"
+      it: "Inglese"
+      zh: "英语"
+    level:
+      pl: "B2/C1"
+      en: "B2/C1"
+      de: "B2/C1"
+      it: "B2/C1"
+      zh: "B2/C1"
+  - name:
+      pl: "Niemiecki"
+      en: "German"
+      de: "Deutsch"
+      it: "Tedesco"
+      zh: "德语"
+    level:
+      pl: "A2 (w trakcie nauki)"
+      en: "A2 (learning)"
+      de: "A2 (im Lernprozess)"
+      it: "A2 (in apprendimento)"
+      zh: "A2（学习中）"
+  - name:
+      pl: "Włoski"
+      en: "Italian"
+      de: "Italienisch"
+      it: "Italiano"
+      zh: "意大利语"
+    level:
+      pl: "A2 (w trakcie nauki)"
+      en: "A2 (learning)"
+      de: "A2 (im Lernprozess)"
+      it: "A2 (in apprendimento)"
+      zh: "A2（学习中）"
+
+projects:
+  - title: "Tauron – web & mobile"
+    stage: "Commercial"
+    stack: ["Next.js", "Python", "Flask", "Java", "Spring", "OpenCV", "PyTorch", "YOLO", "DEIM", "Detectron2", "Docker", "Flutter"]
+    desc:
+      en: "AI meter reader: ROI detection + 7‑segment OCR; field‑grade robustness. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms; CPU=88 ms; OCR digit=95%, sequence=92%."
+      pl: "AI meter reader: detekcja ROI + OCR 7‑segmentowe; odporność terenowa. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms; CPU=88 ms; OCR digit=95%, sequence=92%."
+      de: "AI‑Zählerleser: ROI‑Erkennung + 7‑Segment‑OCR; robust im Feld. mAP50=0.94, mAP50‑95=0.76; Edge‑Latenz=34 ms; CPU=88 ms; OCR Ziffer=95%, Sequenz=92%."
+      it: "AI meter reader: rilevamento ROI + OCR a 7 segmenti; robustezza in campo. mAP50=0.94, mAP50‑95=0.76; latenza edge=34 ms; CPU=88 ms; OCR cifre=95%, sequenza=92%."
+      zh: "AI 电表读取：ROI 检测 + 七段数码管 OCR；现场鲁棒性。mAP50=0.94，mAP50‑95=0.76；边缘延迟=34 ms；CPU=88 ms；OCR 数字=95%，序列=92%。"
+    link: "https://github.com/alphatra"
+  - title: "HackYeah2024 – Deepfake Analyser"
+    stage: "Alpha"
+    stack: ["Next.js", "Python", "Flask", "MySQL", "shadcn/ui", "magicui", "PyTorch", "Llama 3", "Docker"]
+    desc:
+      en: "Deepfake analysis toolkit; ROC‑AUC=0.93 on curated test set; hackathon demo."
+      pl: "Analiza deepfake; ROC‑AUC=0.93 na kurat. teście; demo hackathon."
+      de: "Deepfake‑Analyse‑Toolkit; ROC‑AUC=0.93 auf kuratiertem Test; Hackathon‑Demo."
+      it: "Toolkit per l’analisi dei deepfake; ROC‑AUC=0.93 su test curato; demo hackathon."
+      zh: "Deepfake 分析工具；ROC‑AUC=0.93（精心整理的测试集）；黑客松演示。"
+    link: "https://github.com/alphatra"
+  - title: "HackYeah2023 – UniQuestAI"
+    stage: "Alpha"
+    stack: ["Next.js", "Python", "Flask", "MySQL", "TailwindCSS", "AI", "Docker"]
+    desc:
+      en: "AI search engine for higher education offers."
+      pl: "Wyszukiwarka ofert studiów z AI."
+      de: "KI‑Suchmaschine für Studienangebote im Hochschulbereich."
+      it: "Motore di ricerca AI per offerte di studio universitario."
+      zh: "面向高校招生信息的 AI 搜索引擎。"
+    link: "https://github.com/alphatra"
+  - title: "Taekwondo ITF Handbook"
+    stage: "Alpha"
+    stack: ["Flutter", "Django"]
+    desc:
+      en: "Mobile dictionary and encyclopedia app (demo)."
+      pl: "Aplikacja mobilna – słownik i encyklopedia (demo)."
+      de: "Mobile Wörterbuch‑ und Enzyklopädie‑App (Demo)."
+      it: "App mobile dizionario ed enciclopedia (demo)."
+      zh: "移动词典与百科应用（演示版）。"
+    link: "https://github.com/alphatra"
+  - title: "Acoustic Levitator"
+    stage: "Ongoing"
+    stack: ["MATLAB", "Raspberry Pi", "Python"]
+    desc:
+      en: "Simulation and construction of an acoustic levitator."
+      pl: "Symulacja i budowa akustycznego lewitatora."
+      de: "Simulation und Aufbau eines akustischen Levitatorkonzepts."
+      it: "Simulazione e costruzione di un levitatore acustico."
+      zh: "声学悬浮装置的仿真与构建。"
+    link: "https://github.com/alphatra"
+
+certificates:
+  - title: "Deep Learning Onramp"
+    issuer: "MathWorks"
+    date: "2024‑02‑04"
+  - title: "Powerboat Driver License"
+    issuer: "PZMiNW"
+    date: "2022‑08‑25"
+  - title: "Water Skiing Towboat Operator License"
+    issuer: "PZMiNW"
+    date: "2022‑08‑25"
+  - title: "EE.08 EE.09 – IT Technician"
+    issuer: "CKE"
+    date: "2022‑06‑30"
+  - title: "Polish Matura Exam"
+    issuer: "CKE"
+    date: "2022‑06‑30"
+  - title: "Driving License B"
+    issuer: "PL"
+    date: "2021‑10‑08"
+
+softSkills:
+  - "Self discipline"
+  - "Creativity"
+  - "Communication"
+  - "Patience and perseverance"
+  - "Analytical mind"
+  - "Problem‑solving ability"
+
+interests:
+  - title: "Creating design"
+    desc:
+      en: "Stylish and useful. I make world better through design."
+      pl: "Stylowo i użytecznie. Poprawiam świat dzięki designowi."
+  - title: "Books & Movies"
+    desc:
+      en: "I love sci‑fi and history; it helps me rest and learn."
+      pl: "Uwielbiam sci‑fi i historię; pozwala odpocząć i uczyć się."
+  - title: "Taekwondo – ITF"
+    desc:
+      en: "Discipline, perseverance, respect – my life philosophy."
+      pl: "Dyscyplina, wytrwałość, szacunek – moja filozofia życia."
+
+gdpr:
+  pl: "Wyrażam zgodę na przetwarzanie moich danych osobowych w celu prowadzenia procesu rekrutacji, zgodnie z RODO."
+  en: "I hereby consent to the processing of my personal data for recruitment purposes, in accordance with GDPR."
+  de: "Ich willige in die Verarbeitung meiner personenbezogenen Daten zum Zwecke des Bewerbungsverfahrens gemäß DSGVO ein."
+  it: "Acconsento al trattamento dei miei dati personali ai fini del reclutamento, in conformità al GDPR."
+  zh: "本人同意为招聘之目的处理我的个人数据，符合 GDPR 要求。"
+
+achievements:
+  - "World Champion (Taekwon‑do ITF, patterns) & Vice World Champion (sparring), 2021"
+  - "HackYeah 2023/2024 participation and distinctions; ML/CV workshops at Pointer UWR"
+
+

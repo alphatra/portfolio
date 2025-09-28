@@ -1,0 +1,6 @@
+variant: mobile
+cv:
+  mobile: "https://cv-gracjanziemianski.vercel.app/mobile.pdf"
+  ai: "https://cv-gracjanziemianski.vercel.app/ai.pdf"
+  fullstack: "https://cv-gracjanziemianski.vercel.app/fullstack.pdf"
+

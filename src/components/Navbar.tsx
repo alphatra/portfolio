@@ -5,21 +5,23 @@ import AccessibilityMenu from './AccessibilityMenu'; // Import new menu (uncomme
 import { Accessibility } from 'lucide-react'; // Corrected icon import
 import { cn } from "@/lib/utils"; // Import cn for potential future use
 import ClientThemeToggle from './ClientThemeToggle';
+import { useI18n, type Locale } from '@/i18n';
 
 // Importujemy ClientThemeToggle, ale nie za pomocą importu ES6, tylko jako komponent Astro
 // import ClientThemeToggle from './ClientThemeToggle.astro';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'About', href: '/about' },
-  { name: 'Guestbook', href: '/guestbook' },
+  { key: 'nav.home', href: '/' },
+  { key: 'nav.blog', href: '/blog' },
+  { key: 'nav.projects', href: '/projects' },
+  { key: 'nav.about', href: '/about' },
+  { key: 'nav.guestbook', href: '/guestbook' },
 ];
 
 export const Navbar: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccessibilityMenuOpen, setIsAccessibilityMenuOpen] = useState(false);
+  const { locale, t, setLocale } = useI18n();
   const accessibilityMenuRef = useRef<HTMLDivElement>(null); // Ref for dropdown
   const accessibilityTriggerRef = useRef<HTMLButtonElement>(null); // Ref for trigger button
 
@@ -70,11 +72,11 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex space-x-6">
             {navLinks.map((link) => (
               <a 
-                key={link.name} 
+                key={link.key} 
                 href={link.href} 
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
               >
-                {link.name}
+                {t(link.key)}
               </a>
             ))}
           </div>
@@ -85,7 +87,7 @@ export const Navbar: React.FC = () => {
             <input
               type="text"
               onClick={() => setIsSearchOpen(true)}
-              placeholder="Naciśnij Ctrl+K"
+              placeholder={t('search.placeholder')}
               readOnly
               aria-label="Otwórz wyszukiwarkę"
               className="bg-muted border border-border rounded-md py-1 px-3 text-sm text-foreground placeholder:text-foreground/50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
@@ -93,6 +95,20 @@ export const Navbar: React.FC = () => {
             
             <ClientThemeToggle />
             
+            {/* Language Selector */}
+            <select
+              value={locale}
+              onChange={(e) => { const l = e.target.value as Locale; setLocale(l); }}
+              aria-label="Language"
+              className="bg-muted border border-border rounded-md py-1 px-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
+            >
+              <option value="pl">PL</option>
+              <option value="en">EN</option>
+              <option value="de">DE</option>
+              <option value="it">IT</option>
+              <option value="zh">中文</option>
+            </select>
+
             {/* Accessibility Menu Trigger Button */}
             <div className="relative">
               <button 

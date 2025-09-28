@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Command } from 'cmdk';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 import { Home, Book, FolderGit2, User, MessageSquare, Github, Linkedin, Twitter } from 'lucide-react'; // Example icons
 
 interface SearchModalProps {
@@ -9,6 +10,7 @@ interface SearchModalProps {
 }
 
 export const SearchModal: React.FC<SearchModalProps> = ({ open, onOpenChange }) => {
+  const { t } = useI18n();
   // Optional: Add logic to dynamically load items or perform actual search
 
   // Close on Escape key
@@ -67,20 +69,20 @@ export const SearchModal: React.FC<SearchModalProps> = ({ open, onOpenChange }) 
         {/* Help row: keyboard hints and close button */}
         <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-500 border-b border-gray-800">
           <div className="flex items-center gap-3">
-            <span>Enter: otwórz</span>
-            <span>↑↓: nawigacja</span>
-            <span>Esc: zamknij</span>
+            <span>{t('search.help.enter')}</span>
+            <span>{t('search.help.arrows')}</span>
+            <span>{t('search.help.esc')}</span>
           </div>
           <button
             onClick={() => onOpenChange(false)}
             className="text-gray-400 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
-            aria-label="Zamknij wyszukiwarkę"
+            aria-label={t('button.close')}
           >
-            Zamknij
+            {t('button.close')}
           </button>
         </div>
         <Command.List className="max-h-[400px] overflow-y-auto p-2 flex-grow">
-          <Command.Empty className="p-4 text-center text-gray-500">No results found.</Command.Empty>
+          <Command.Empty className="p-4 text-center text-gray-500">{t('search.empty')}</Command.Empty>
 
           {/* Example Groups and Items */}
           <Command.Group heading="Navigation" className="text-xs text-gray-500 px-2 py-1.5">

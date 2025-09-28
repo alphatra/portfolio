@@ -1,0 +1,570 @@
+{
+  "basics": {
+    "url": {
+      "href": "",
+      "label": ""
+    },
+    "name": "Gracjan Ziemiański",
+    "email": "zieemianskigracjan@icloud.com",
+    "phone": "+48 511 235 401",
+    "picture": {
+      "url": "",
+      "size": 120,
+      "effects": {
+        "border": false,
+        "hidden": false,
+        "grayscale": false
+      },
+      "aspectRatio": 1,
+      "borderRadius": 0
+    },
+    "headline": "AI/ML Engineer (Computer Vision) · Fizyka Stosowana",
+    "location": "Italy, Torino 10126",
+    "customFields": []
+  },
+  "metadata": {
+    "css": {
+      "value": "* {\n\toutline: 1px solid #000;\n\toutline-offset: 4px;\n}",
+      "visible": false
+    },
+    "page": {
+      "format": "a4",
+      "margin": 14,
+      "options": {
+        "breakLine": true,
+        "pageNumbers": true
+      }
+    },
+    "notes": "",
+    "theme": {
+      "text": "#000000",
+      "primary": "#ca8a04",
+      "background": "#ffffff"
+    },
+    "layout": [
+      [
+        [
+          "summary",
+          "experience",
+          "education",
+          "projects",
+          "certifications"
+        ],
+        [
+          "profiles",
+          "skills",
+          "languages",
+          "interests",
+          "awards"
+        ]
+      ]
+    ],
+    "template": "bronzor",
+    "typography": {
+      "font": {
+        "size": 13,
+        "family": "Merriweather",
+        "subset": "latin",
+        "variants": [
+          "regular"
+        ]
+      },
+      "hideIcons": false,
+      "lineHeight": 1.75,
+      "underlineLinks": true
+    }
+  },
+  "sections": {
+    "awards": {
+      "id": "awards",
+      "name": "Achievements & Activities",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "title": "World Champion (Taekwon-do ITF, patterns) & Vice World Champion (sparring)",
+          "awarder": "International Taekwondo ITF",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2021",
+          "summary": "International Taekwondo ITF competition achievements.",
+          "visible": true
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "title": "HackYeah 2023/2024 participation and distinctions; ML/CV workshops at Pointer UWR",
+          "awarder": "HackYeah & Pointer UWR",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2023-2024",
+          "summary": "Participation in hackathons and leading workshops on Machine Learning and Computer Vision.",
+          "visible": true
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "custom": {},
+    "skills": {
+      "id": "skills",
+      "name": "Expertise",
+      "items": [
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "name": "Core AI/ML & Computer Vision",
+          "level": 0,
+          "visible": true,
+          "keywords": [
+            "Python",
+            "PyTorch",
+            "Detectron2",
+            "YOLOv8",
+            "OpenCV",
+            "NumPy",
+            "Pandas",
+            "scikit-learn"
+          ],
+          "description": "Advanced"
+        },
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "name": "Backend & DevOps",
+          "level": 0,
+          "visible": true,
+          "keywords": [
+            "FastAPI",
+            "Flask",
+            "Docker",
+            "SQL / MySQL",
+            "Label Studio",
+            "Git",
+            "Linux",
+            "CUDA"
+          ],
+          "description": "Intermediate"
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "name": "Frontend & Mobile",
+          "level": 0,
+          "visible": true,
+          "keywords": [
+            "Next.js",
+            "Flutter"
+          ],
+          "description": "Intermediate"
+        },
+        {
+          "id": "lhw25d7gf32wgdfpsktf6e0x",
+          "name": "Soft Skills",
+          "level": 0,
+          "visible": true,
+          "keywords": [
+            "Self discipline",
+            "Creativity",
+            "Communication",
+            "Patience and perseverance",
+            "Analytical mind",
+            "Problem-solving ability"
+          ],
+          "description": "Strong"
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "summary": {
+      "id": "summary",
+      "name": "Summary",
+      "columns": 1,
+      "content": "<p>Inżynier AI/ML z doświadczeniem w Computer Vision i zapleczem fizycznym. Buduję end‑to‑end modele (PyTorch/YOLO/Detectron2), projektuję i wdrażam API inference (Flask/FastAPI, Docker), dbam o dane i metryki. Łączę metody uczenia głębokiego z modelowaniem i weryfikacją eksperymentalną. Interesuję się MLOps i zastosowaniami AI w energetyce oraz projektach badawczych na styku informatyki i fizyki.</p>",
+      "visible": true,
+      "separateLinks": true
+    },
+    "profiles": {
+      "id": "profiles",
+      "name": "Profiles",
+      "items": [],
+      "columns": 1,
+      "visible": false,
+      "separateLinks": true
+    },
+    "projects": {
+      "id": "projects",
+      "name": "Projects",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "Tauron – web & mobile",
+          "summary": "<p>Commercial AI meter reader: detekcja ROI + OCR 7‑segmentowe; odporność terenowa. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms; CPU=88 ms; OCR digit=95%, sequence=92%.</p><ul><li>Technologies: Next.js, Python, Flask, Java, Spring, OpenCV, PyTorch, YOLO, DEIM, Detectron2, Docker, Flutter</li></ul>",
+          "visible": true,
+          "keywords": [
+            "Commercial"
+          ],
+          "description": "AI Meter Reader Application"
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "HackYeah2024 – Deepfake Analyser",
+          "summary": "<p>Analiza deepfake; ROC‑AUC=0.93 na kurat. teście; demo hackathon.</p><ul><li>Technologies: Next.js, Python, Flask, MySQL, shadcn/ui, magicui, PyTorch, Llama 3, Docker</li></ul>",
+          "visible": true,
+          "keywords": [
+            "Alpha"
+          ],
+          "description": "Deepfake Detection Tool"
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "HackYeah2023 – UniQuestAI",
+          "summary": "<p>Wyszukiwarka ofert studiów z AI.</p><ul><li>Technologies: Next.js, Python, Flask, MySQL, TailwindCSS, AI, Docker</li></ul>",
+          "visible": true,
+          "keywords": [
+            "Alpha"
+          ],
+          "description": "AI-Powered University Search"
+        },
+        {
+          "id": "yw843emozcth8s1ubi1ubvlf",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "Taekwondo ITF Handbook",
+          "summary": "<p>Aplikacja mobilna – słownik i encyklopedia (demo).</p><ul><li>Technologies: Flutter, Django</li></ul>",
+          "visible": true,
+          "keywords": [
+            "Alpha"
+          ],
+          "description": "Mobile Educational App"
+        },
+        {
+          "id": "ncxgdjjky54gh59iz2t1xi1v",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "Acoustic Levitator",
+          "summary": "<p>Symulacja i budowa akustycznego lewitatora.</p><ul><li>Technologies: MATLAB, Raspberry Pi, Python</li></ul>",
+          "visible": true,
+          "keywords": [
+            "Ongoing"
+          ],
+          "description": "Physics Simulation Project"
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "education": {
+      "id": "education",
+      "name": "Education",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "area": "",
+          "date": "2022 – 2026",
+          "score": "",
+          "summary": "",
+          "visible": true,
+          "studyType": "Applied Computer Science and Measurement Systems (Bachelor)",
+          "institution": "University of Wroclaw"
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "area": "",
+          "date": "2025‑09 – 2026‑02",
+          "score": "",
+          "summary": "",
+          "visible": true,
+          "studyType": "MOST Student Exchange – Computer Science (Bachelor)",
+          "institution": "AGH University of Krakow"
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "area": "",
+          "date": "2024‑09‑20 – 2025‑02‑28",
+          "score": "",
+          "summary": "",
+          "visible": true,
+          "studyType": "ERASMUS – Applied Physics (Bachelor exchange)",
+          "institution": "University of Turin (UniTo)"
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "interests": {
+      "id": "interests",
+      "name": "Interests",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "name": "Creating design",
+          "keywords": [
+            "Stylowo i użytecznie. Poprawiam świat dzięki designowi."
+          ],
+          "visible": true
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "name": "Books & Movies",
+          "keywords": [
+            "Uwielbiam sci‑fi i historię; pozwala odpocząć i uczyć się."
+          ],
+          "visible": true
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "name": "Taekwondo – ITF",
+          "keywords": [
+            "Dyscyplina, wytrwałość, szacunek – moja filozofia życia."
+          ],
+          "visible": true
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "languages": {
+      "id": "languages",
+      "name": "Languages",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "name": "Polski",
+          "level": 5,
+          "description": "Ojczysty",
+          "visible": true
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "name": "Angielski",
+          "level": 4,
+          "description": "B2/C1",
+          "visible": true
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "name": "Niemiecki",
+          "level": 2,
+          "description": "A2 (w trakcie nauki)",
+          "visible": true
+        },
+        {
+          "id": "yw843emozcth8s1ubi1ubvlf",
+          "name": "Włoski",
+          "level": 2,
+          "description": "A2 (w trakcie nauki)",
+          "visible": true
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "volunteer": {
+      "id": "volunteer",
+      "name": "Volunteering",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2023‑10 – present",
+          "position": "President – Pointer UWR (Student Society)",
+          "organization": "University of Wroclaw",
+          "summary": "<ul><li>Organizacja spotkań, wymiana wiedzy, prowadzenie projektów IT.</li></ul>",
+          "visible": true,
+          "location": "Wroclaw, Poland"
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "experience": {
+      "id": "experience",
+      "name": "Work Experience",
+      "items": [
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2024‑09 – present",
+          "company": "Bright Coders' Factory & Tauron",
+          "summary": "<ul><li>AI specialist: integracje CV (YOLOv8, DEIM, Detectron2) dla odczytu liczników. mAP50=0.94, mAP50‑95=0.76; edge latency=34 ms (Android NNAPI), CPU=88 ms.</li><li>API inference (FastAPI/Flask + Docker), med. response −38%, ~45 req/s (t4g.medium).</li><li>Flutter jako interfejs.</li></ul>",
+          "visible": true,
+          "location": "",
+          "position": "Junior AI Specialist — Computer Vision"
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2024‑06 – 2024‑09",
+          "company": "Bright Coders' Factory",
+          "summary": "<ul><li>Mobile dev: Flutter (Android/iOS), web (Next.js), trening YOLOv8, budowa API (Flask), testy i debugowanie.</li></ul>",
+          "visible": true,
+          "location": "",
+          "position": "Full‑stack Intern (Mobile Dev)"
+        },
+        {
+          "id": "yw843emozcth8s1ubi1ubvlf",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2019‑11 – 2019‑12",
+          "company": "T.H. ALPLAST",
+          "summary": "<ul><li>Konfiguracja systemów IT, dostosowywanie oprogramowania, sieć, bazy danych.</li></ul>",
+          "visible": true,
+          "location": "",
+          "position": "System and Network Configuration Intern"
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    },
+    "references": {
+      "id": "references",
+      "name": "References",
+      "items": [],
+      "columns": 1,
+      "visible": false,
+      "separateLinks": true
+    },
+    "publications": {
+      "id": "publications",
+      "name": "Publications",
+      "items": [],
+      "columns": 1,
+      "visible": false,
+      "separateLinks": true
+    },
+    "certifications": {
+      "id": "certifications",
+      "name": "Certificates",
+      "items": [
+        {
+          "id": "hn0keriukh6c0ojktl9gsgjm",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2024‑02‑04",
+          "name": "Deep Learning Onramp",
+          "issuer": "MathWorks",
+          "summary": "",
+          "visible": true
+        },
+        {
+          "id": "r8c3y47vykausqrgmzwg5pur",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2022‑08‑25",
+          "name": "Powerboat Driver License",
+          "issuer": "PZMiNW",
+          "summary": "",
+          "visible": true
+        },
+        {
+          "id": "b5l75aseexqv17quvqgh73fe",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2022‑08‑25",
+          "name": "Water Skiing Towboat Operator License",
+          "issuer": "PZMiNW",
+          "summary": "",
+          "visible": true
+        },
+        {
+          "id": "yw843emozcth8s1ubi1ubvlf",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2022‑06‑30",
+          "name": "EE.08 EE.09 – IT Technician",
+          "issuer": "CKE",
+          "summary": "",
+          "visible": true
+        },
+        {
+          "id": "ncxgdjjky54gh59iz2t1xi1v",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2022‑06‑30",
+          "name": "Polish Matura Exam",
+          "issuer": "CKE",
+          "summary": "",
+          "visible": true
+        },
+        {
+          "id": "lhw25d7gf32wgdfpsktf6e0x",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "2021‑10‑08",
+          "name": "Driving License B",
+          "issuer": "PL",
+          "summary": "",
+          "visible": true
+        }
+      ],
+      "columns": 1,
+      "visible": true,
+      "separateLinks": true
+    }
+  }
+}

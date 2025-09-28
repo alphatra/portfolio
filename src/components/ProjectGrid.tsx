@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import ModernProjectCard from './ModernProjectCard';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 // Define formatDate function directly within the component file
 function formatDate(isoString: string): string {
@@ -40,6 +41,7 @@ interface ProjectGridProps {
 }
 
 export default function ProjectGrid({ githubRepos, githubError, filters }: ProjectGridProps) {
+  const { t } = useI18n();
   // Build filters dynamically from languages (fallback to All)
   const dynamicFilters = useMemo(() => {
     const langs = Array.from(new Set((githubRepos || []).map(r => r.language).filter(Boolean))) as string[];
@@ -88,7 +90,7 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
         {/* Filters */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-gray-500 dark:text-gray-400 mr-2">Filtr:</span>
+          <span className="text-gray-500 dark:text-gray-400 mr-2">{t('grid.filter') || 'Filtr:'}</span>
           {dynamicFilters.map((filter) => (
             <button
               key={filter}
@@ -108,7 +110,7 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
         <div className="relative flex items-center gap-3">
           <input
             type="text"
-            placeholder="Szukaj..."
+            placeholder={t('grid.search') || 'Szukaj...'}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-neutral-100 dark:bg-gray-800/50 border border-neutral-300 dark:border-gray-700 rounded-full pl-4 pr-10 py-1 text-sm text-neutral-800 dark:text-gray-300 placeholder-neutral-500 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-neon-blue focus:border-transparent dark:focus:border-transparent w-48"
@@ -118,14 +120,14 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
           </svg>
 
           <select
-            aria-label="Sortuj projekty"
+            aria-label={t('grid.sort.label') || 'Sortuj projekty'}
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
             className="bg-neutral-100 dark:bg-gray-800/50 border border-neutral-300 dark:border-gray-700 rounded-full px-3 py-1 text-sm text-neutral-800 dark:text-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-neon-blue"
           >
-            <option value="updated">Niedawno aktualizowane</option>
-            <option value="stars">Najwięcej gwiazdek</option>
-            <option value="name">Nazwa A→Z</option>
+            <option value="updated">{t('grid.sort.updated') || 'Niedawno aktualizowane'}</option>
+            <option value="stars">{t('grid.sort.stars') || 'Najwięcej gwiazdek'}</option>
+            <option value="name">{t('grid.sort.name') || 'Nazwa A→Z'}</option>
           </select>
         </div>
       </div>
@@ -155,7 +157,7 @@ export default function ProjectGrid({ githubRepos, githubError, filters }: Proje
           ))
         ) : (
           <div className="col-span-full text-neutral-500 dark:text-gray-400 text-center py-8">
-            {searchQuery.trim() !== '' ? 'Brak projektów pasujących do wyszukiwania.' : 'Brak projektów lub trwa ładowanie…'}
+            {searchQuery.trim() !== '' ? (t('grid.empty.search') || 'Brak projektów pasujących do wyszukiwania.') : (t('grid.empty.none') || 'Brak projektów lub trwa ładowanie…')}
           </div>
         )}
       </div>

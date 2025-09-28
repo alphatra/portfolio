@@ -58,6 +58,11 @@ interface NeonGradientCardProps {
    * */
   neonColors?: NeonColorsProps;
 
+  /**
+   * When true, renders a simple static card without neon animated borders.
+   */
+  disabled?: boolean;
+
   [key: string]: any;
 }
 
@@ -70,8 +75,24 @@ export const NeonGradientCard: React.FC<NeonGradientCardProps> = ({
     firstColor: "#ff00aa",
     secondColor: "#00FFF1",
   },
+  disabled = false,
   ...props
 }) => {
+  if (disabled) {
+    return (
+      <div
+        className={cn(
+          "relative z-10 size-full",
+          className,
+          "rounded-[20px] border border-border/60 bg-white text-black dark:bg-neutral-900 dark:text-white"
+        )}
+        style={{ borderRadius }}
+        {...props}
+      >
+        <div className={cn("relative size-full min-h-[inherit] p-6")}>{children}</div>
+      </div>
+    );
+  }
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 

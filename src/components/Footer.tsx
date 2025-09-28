@@ -1,8 +1,10 @@
 import React from 'react';
 import { Github, Linkedin, Twitter } from 'lucide-react'; // Example social icons
+import { useI18n } from '@/i18n';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useI18n();
 
   return (
     <footer className="mt-16 border-t border-gray-800/50 py-8">
@@ -21,7 +23,7 @@ export const Footer: React.FC = () => {
           {/* Add other social links as needed */}
         </div>
         <p className="text-sm">
-          &copy; {currentYear} Gracjan. All rights reserved.
+          &copy; {currentYear} Gracjan. {t('footer.rights') || 'All rights reserved.'}
         </p>
         {/* Optional: Add built with Astro/React/etc. text */}
       </div>

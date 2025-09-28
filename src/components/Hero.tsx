@@ -2,21 +2,22 @@ import * as React from "react";
 import { motion, useReducedMotion } from 'framer-motion'; // Import motion and useReducedMotion
 import { TypingAnimation } from "./magicui/typing-animation";
 import { cn } from "@/lib/utils"; // Import cn if needed for combining classes
+import { useI18n } from '@/i18n';
 
 // We'll add a typewriter component later
 // import Typewriter from './Typewriter'; 
 
 export const Hero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion(); // Użyj hooka
+  const { t, ta } = useI18n();
 
-  // Placeholder data - replace with actual content
-  const name = "Gracjan";
-  const specialty = "Full-Stack Developer";
-  const roles = [
-    "Building modern web experiences",
-    "Solving problems with code",
-    "Passionate about open-source",
-    "Exploring new technologies",
+  const name = t('hero.name');
+  const specialty = t('hero.specialty');
+  const roles = ta('hero.roles').length ? ta('hero.roles') : [
+    'Building modern web experiences',
+    'Solving problems with code',
+    'Passionate about open-source',
+    'Exploring new technologies'
   ];
 
   return (
@@ -44,7 +45,7 @@ export const Hero: React.FC = () => {
         </div>
 
         <p className="mt-12 text-sm text-foreground/50">
-          Press <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Ctrl K</kbd> to explore
+          {t('search.placeholder') || 'Press Ctrl+K'}
         </p>
       </motion.div>
 

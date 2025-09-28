@@ -9,6 +9,7 @@ import ContactCard from './ContactCard'; // Import new card
 import LetterboxdCard from './LetterboxdCard'; // Import LetterboxdCard
 // Removed StatsCard and LastFmCard imports
 import { cn } from "@/lib/utils";
+import { useI18n } from '@/i18n';
 
 // Define a base style for all cards to apply Y2K elements
 const cardBaseStyle = cn(
@@ -22,6 +23,7 @@ const cardBaseStyle = cn(
 
 export const BentoContainer: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useI18n();
   // Animation variants (can be kept or removed if cards handle their own)
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -44,7 +46,7 @@ export const BentoContainer: React.FC = () => {
     <section className="container mx-auto px-4 mb-16 md:mb-24">
       {/* Title can stay, maybe adjust margin */}
       <h2 className="text-3xl font-extrabold text-center mb-12 tracking-tight text-foreground">
-        What I'm Up To
+        {t('home.section.activity') || "What I'm Up To"}
       </h2>
       {/* Changed to 3 columns */}
       <motion.div
@@ -93,10 +95,10 @@ export const BentoContainer: React.FC = () => {
         >
           <div>
             <Book className="w-6 h-6 mb-3 text-foreground/80" />
-            <h3 className="text-lg font-semibold mb-1 text-foreground">Blog</h3>
-            <p className="text-sm text-foreground/60 mb-3">Read my latest posts</p>
+            <h3 className="text-lg font-semibold mb-1 text-foreground">{t('nav.blog')}</h3>
+            <p className="text-sm text-foreground/60 mb-3">{t('home.cards.blog.subtitle') || 'Read my latest posts'}</p>
           </div>
-          <a href="/blog" className="text-sm accent-underline self-end focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">Go to Blog →</a>
+          <a href="/blog" className="text-sm accent-underline self-end focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">{t('home.cards.blog.cta') || 'Go to Blog →'}</a>
         </motion.div>
 
         {/* Projects Link Card - Row 3, Col 1 */}
@@ -106,10 +108,10 @@ export const BentoContainer: React.FC = () => {
         >
            <div>
             <FolderGit2 className="w-6 h-6 mb-3 text-foreground/80" />
-            <h3 className="text-lg font-semibold mb-1 text-foreground">Projects</h3>
-            <p className="text-sm text-foreground/60 mb-3">Explore my projects</p>
+            <h3 className="text-lg font-semibold mb-1 text-foreground">{t('nav.projects')}</h3>
+            <p className="text-sm text-foreground/60 mb-3">{t('home.cards.projects.subtitle') || 'Explore my projects'}</p>
           </div>
-          <a href="/projects" className="text-sm accent-underline self-end focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">Go to Projects →</a>
+          <a href="/projects" className="text-sm accent-underline self-end focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">{t('home.cards.projects.cta') || 'Go to Projects →'}</a>
         </motion.div>
 
          {/* Contact Card - Row 3, Col 2 */}

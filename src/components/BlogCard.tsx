@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 interface BlogCardProps {
   slug: string;
@@ -20,7 +21,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   tags = [],
   className,
 }) => {
-  const date = new Date(pubDate).toLocaleDateString('pl-PL', {
+  const { locale, t } = useI18n();
+  const loc = locale === 'pl' ? 'pl-PL' : locale === 'de' ? 'de-DE' : locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US';
+  const date = new Date(pubDate).toLocaleDateString(loc, {
     year: 'numeric', month: 'long', day: 'numeric'
   });
 
@@ -64,7 +67,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             </div>
           )}
           <div className="mt-4 text-right">
-            <span className="text-xs font-medium text-primary group-hover:underline">Czytaj dalej →</span>
+            <span className="text-xs font-medium text-primary group-hover:underline">{t('blog.readMore')}</span>
           </div>
         </div>
       </article>

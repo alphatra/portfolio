@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets'; // Użyjemy Image dla optymalizacji
+import { getLocale, t } from '@/i18n';
 import BlogCard from '@/components/BlogCard';
+import LocalizedText from '@/components/LocalizedText.tsx';
 
 // Pobierz wszystkie wpisy, sortuj od najnowszych
 const allPosts = (await getCollection('blog')).sort(
@@ -10,25 +12,25 @@ const allPosts = (await getCollection('blog')).sort(
 );
 
 // Wydziel najnowszy post i resztę
+const locale = getLocale();
 const featuredPost = allPosts[0];
 const otherPosts = allPosts.slice(1);
 
 // Funkcja formatująca datę
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('pl-PL', {
+  const loc = locale === 'pl' ? 'pl-PL' : locale === 'de' ? 'de-DE' : locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US';
+  return date.toLocaleDateString(loc, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 }
 ---
-<Layout title="Blog - Gracjan" description="Najnowsze wpisy na blogu Gracjana Ziemiańskiego.">
+<Layout title={t('nav.blog') + ' - Gracjan'} description={t('nav.blog') + ' — ' + 'Najnowsze wpisy / Latest posts'}>
   <div class="container mx-auto px-4 py-16">
     <header class="mb-16 text-center">
-      <h1 id="page-heading" tabindex="-1" class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Blog
-      </h1>
-      <p class="text-lg text-muted-foreground">Najnowsze historie, poradniki i przemyślenia.</p>
+      <LocalizedText client:load as="h1" id="page-heading" tabindex="-1" class="text-4xl md:text-5xl font-bold text-foreground mb-4" k="nav.blog" />
+      <LocalizedText client:load as="p" class="text-lg text-muted-foreground" k="blog.subtitle" />
     </header>
 
     {featuredPost && (
@@ -50,10 +52,10 @@ const formatDate = (date: Date) => {
                 {formatDate(featuredPost.data.pubDate)}
               </p>
               <h2 class="text-2xl md:text-3xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
-                {featuredPost.data.title}
+                {featuredPost.data[`title_${locale}`] || featuredPost.data.title}
               </h2>
               <p class="text-md text-foreground/80 mb-4 line-clamp-3">
-                {featuredPost.data.description}
+                {featuredPost.data[`description_${locale}`] || featuredPost.data.description}
               </p>
               <span class="text-sm font-medium text-primary group-hover:underline">
                 Czytaj dalej →
@@ -66,13 +68,13 @@ const formatDate = (date: Date) => {
 
     {otherPosts.length > 0 && (
       <section>
-        <h2 class="text-2xl font-semibold mb-8 text-foreground">Wszystkie wpisy</h2>
+        <h2 class="text-2xl font-semibold mb-8 text-foreground">{t('blog.allPosts')}</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {otherPosts.map((post) => (
             <BlogCard
               slug={post.slug}
-              title={post.data.title}
-              description={post.data.description}
+              title={post.data[`title_${locale}`] || post.data.title}
+              description={post.data[`description_${locale}`] || post.data.description}
               heroImage={post.data.heroImage}
               pubDate={post.data.pubDate.toISOString()}
               tags={post.data.tags}
@@ -83,7 +85,7 @@ const formatDate = (date: Date) => {
     )}
 
     {allPosts.length === 0 && (
-      <p class="text-center text-muted-foreground py-16">Na razie brak wpisów na blogu.</p>
+      <p class="text-center text-muted-foreground py-16">{locale === 'pl' ? 'Na razie brak wpisów na blogu.' : 'No posts yet.'}</p>
     )}
   </div>
 </Layout>

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Github, Facebook, Languages, GraduationCap, Briefcase, Settings } from 'lucide-react';
 import { cn } from "@/lib/utils"; 
+import { useI18n } from '@/i18n';
 
 // --- Data from User ---
 const contactInfo = {
@@ -17,7 +18,7 @@ const contactInfo = {
 const education = [
   {
     title: 'Applied Computer Science and Measurement Systems',
-    institution: 'Univeristy of Wroclaw',
+    institution: 'University of Wroclaw',
     degree: 'BACHELOR DEGREE',
     years: '2022 - 2026',
     icon: <GraduationCap className="h-4 w-4" />
@@ -124,6 +125,15 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ children, id }) => (
 // --- Main Component ---
 const AboutPageContent: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { t, ta } = useI18n();
+  const tx = (key: string, fallback: string) => {
+    const v = t(key);
+    return v === key ? fallback : v;
+  };
+  // read active CV from content collection (bundled at build time)
+  // note: this runs client-side, so we provide a static href resolved at build
+  // We'll inject cvHref via data attribute from server side wrapper if needed; for now dynamic import pattern
+  // Placeholder; Astro won't allow getEntry directly in client component runtime, so we keep the existing link below
   return (
     <div className="px-4 py-16 md:py-24 min-h-screen relative space-y-16 md:space-y-24">
       
@@ -144,16 +154,16 @@ const AboutPageContent: React.FC = () => {
         <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground">
           GRACJAN ZIEMIANSKI
         </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground">Full Stack Developer</p>
+        <p className="text-xl md:text-2xl text-muted-foreground">{t('hero.specialty') || 'Full Stack Developer'}</p>
         <p className="text-lg md:text-xl text-muted-foreground">CREATIVE & AMBITIOUS</p>
         <p className="text-base md:text-lg text-muted-foreground mb-4">Challenges drive me to achieve ambitious goals.</p>
         <a
-          href="https://cv-gracjanziemianski.vercel.app"
+          href={"/api/cv-redirect"}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block text-accent hover:underline"
         >
-          View My CV
+          {t('about.cta.cv') || 'View My CV'}
         </a>
         {/* Links Row */}
         <div className="flex justify-center space-x-8 mt-4">
@@ -163,13 +173,13 @@ const AboutPageContent: React.FC = () => {
             rel="noopener noreferrer"
             className="text-accent hover:underline"
           >
-            GITHUB
+            {t('about.links.github') || 'GitHub'}
           </a>
           <a
             href="/projects"
             className="text-accent hover:underline"
           >
-            MY PROJECTS
+            {t('about.links.projects') || 'My Projects'}
           </a>
         </div>
       </motion.div>
@@ -182,12 +192,12 @@ const AboutPageContent: React.FC = () => {
         className="max-w-3xl mx-auto text-center"
         aria-labelledby="about-me-title"
       >
-        <SectionTitle id="about-me-title">About Me</SectionTitle>
+        <SectionTitle id="about-me-title">{t('about.title') || 'About Me'}</SectionTitle>
         <motion.p 
           variants={itemVariants}
           className="text-foreground/90 text-lg leading-relaxed"
         >
-          {aboutMeText}
+          {t('about.me') || aboutMeText}
         </motion.p>
       </motion.section>
 
@@ -198,18 +208,18 @@ const AboutPageContent: React.FC = () => {
         variants={sectionVariants}
         aria-labelledby="expertise-title"
       >
-        <SectionTitle id="expertise-title">Expertise</SectionTitle>
+        <SectionTitle id="expertise-title">{t('about.expertise') || 'Expertise'}</SectionTitle>
         <motion.div 
           variants={listVariants}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-4xl mx-auto"
         >
-          {expertise.map((skill) => (
+          {(ta('expertise.items').length ? ta('expertise.items') : expertise.map(s => s.name)).map((label, idx) => (
             <motion.div 
-              key={skill.id} 
+              key={idx} 
               variants={itemVariants} 
               className="bg-card/50 border border-border/30 rounded-lg p-3 text-center hover:border-neon-blue/50 transition-colors duration-200"
             >
-              <p className="text-sm font-medium text-foreground">{skill.name}</p>
+              <p className="text-sm font-medium text-foreground">{typeof label === 'string' ? label : ''}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -225,7 +235,7 @@ const AboutPageContent: React.FC = () => {
           variants={sectionVariants}
           aria-labelledby="work-experience-title"
         >
-          <SectionTitle id="work-experience-title">Work Experience</SectionTitle>
+          <SectionTitle id="work-experience-title">{t('about.work') || 'Work Experience'}</SectionTitle>
           <motion.div variants={listVariants} className="space-y-8">
             {workExperience.map((exp, index) => (
               <motion.div 
@@ -237,10 +247,10 @@ const AboutPageContent: React.FC = () => {
                  <div className="absolute -left-4 top-1 p-1.5 bg-primary rounded-full text-primary-foreground">
                    {exp.icon || <Briefcase className="h-4 w-4" />}
                  </div>
-                 <h3 className="text-lg font-medium text-foreground mb-1">{exp.title}</h3>
-                 <p className="text-sm font-semibold text-accent mb-1">{exp.company} / {exp.years}</p>
+                 <h3 className="text-lg font-medium text-foreground mb-1">{tx(`about.work.${index}.title`, exp.title)}</h3>
+                 <p className="text-sm font-semibold text-accent mb-1">{tx(`about.work.${index}.company`, exp.company)} / {tx(`about.work.${index}.years`, exp.years)}</p>
                  <p className="text-muted-foreground text-sm">
-                   {exp.description}
+                   {tx(`about.work.${index}.desc`, exp.description)}
                  </p>
               </motion.div>
             ))}
@@ -254,7 +264,7 @@ const AboutPageContent: React.FC = () => {
           variants={sectionVariants}
           aria-labelledby="education-title"
         >
-          <SectionTitle id="education-title">Education</SectionTitle>
+          <SectionTitle id="education-title">{t('about.education') || 'Education'}</SectionTitle>
           <motion.div variants={listVariants} className="space-y-8">
             {education.map((edu, index) => (
               <motion.div 
@@ -266,9 +276,9 @@ const AboutPageContent: React.FC = () => {
                 <div className="absolute -left-4 top-1 p-1.5 bg-secondary rounded-full text-secondary-foreground">
                   {edu.icon || <GraduationCap className="h-4 w-4" />}
                 </div>
-                <h3 className="text-lg font-medium text-foreground mb-1">{edu.title}</h3>
-                <p className="text-sm font-semibold text-accent mb-1">{edu.institution} {edu.degree ? `(${edu.degree})` : ''}</p>
-                <p className="text-muted-foreground text-xs">{edu.years}</p>
+                <h3 className="text-lg font-medium text-foreground mb-1">{tx(`about.education.${index}.title`, edu.title)}</h3>
+                <p className="text-sm font-semibold text-accent mb-1">{tx(`about.education.${index}.institution`, edu.institution)} {edu.degree ? `(${tx(`about.education.${index}.degree`, edu.degree)})` : ''}</p>
+                <p className="text-muted-foreground text-xs">{tx(`about.education.${index}.years`, edu.years)}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -283,7 +293,7 @@ const AboutPageContent: React.FC = () => {
         className="max-w-3xl mx-auto"
         aria-labelledby="languages-title"
       >
-        <SectionTitle id="languages-title">Languages</SectionTitle>
+        <SectionTitle id="languages-title">{t('about.languages') || 'Languages'}</SectionTitle>
         <motion.div 
           variants={listVariants}
           className="grid grid-cols-1 sm:grid-cols-2 gap-6"
@@ -298,8 +308,8 @@ const AboutPageContent: React.FC = () => {
                 {lang.icon || <Languages className="h-4 w-4" />}
               </div>
               <div>
-                <h4 className="font-medium text-foreground">{lang.name}</h4>
-                <p className="text-xs text-muted-foreground">{lang.level}</p>
+                <h4 className="font-medium text-foreground">{t(`about.languages.${index}.name`) || lang.name}</h4>
+                <p className="text-xs text-muted-foreground">{t(`about.languages.${index}.level`) || lang.level}</p>
               </div>
             </motion.div>
           ))}
@@ -313,7 +323,7 @@ const AboutPageContent: React.FC = () => {
         variants={sectionVariants}
         className="max-w-3xl mx-auto text-center p-8 bg-card/50 border border-border/20 rounded-xl"
       >
-        <SectionTitle id="contact-title">Contact</SectionTitle>
+        <SectionTitle id="contact-title">{t('about.contact') || 'Contact'}</SectionTitle>
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mb-6 text-neutral-300 text-sm">
           <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">
             <Mail className="h-4 w-4" /> {contactInfo.email}

@@ -1,0 +1,52 @@
+---
+import { getEntry } from 'astro:content';
+import CVStandard from '@/components/about/CVStandard';
+
+const { params } = Astro;
+const requested = (params.locale || 'pl').toLowerCase();
+const supported = new Set(['pl','en','de','it','zh']);
+const locale = supported.has(requested) ? requested : 'pl';
+
+const profile = await getEntry('profileAbout','about');
+const about = profile?.data as any;
+
+const l = locale;
+const data = {
+  name: about?.name ?? 'GRACJAN ZIEMIANSKI',
+  specialty: about?.specialty?.[l] ?? about?.specialty?.en ?? '',
+  aboutMe: about?.aboutMe?.[l] ?? about?.aboutMe?.en ?? '',
+  links: about?.links,
+  contact: about?.contact,
+  experience: (about?.experience || []).map((e: any) => ({ title: e.title, company: e.company, years: e.years, desc: e.desc?.[l] ?? e.desc?.en })),
+  education: about?.education || [],
+  skills: about?.skills || [],
+  languages: (about?.languages || []).map((ln: any) => ({ name: ln.name?.[l] ?? ln.name?.en, level: ln.level?.[l] ?? ln.level?.en })),
+  projects: (about?.projects || []).map((p: any) => ({ title: p.title, stage: p.stage, stack: p.stack, desc: p.desc?.[l] ?? p.desc?.en, link: p.link })),
+  certificates: about?.certificates || [],
+  softSkills: about?.softSkills || [],
+  interests: (about?.interests || []).map((it: any) => ({ title: it.title, desc: it.desc?.[l] ?? it.desc?.en })),
+  gdpr: about?.gdpr?.[l] ?? about?.gdpr?.en,
+};
+---
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV – {data.name}</title>
+    <style>
+      @page { size: A4; margin: 14mm; }
+      @media print {
+        html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        a { color: inherit; text-decoration: none; }
+      }
+      body { background: #0a0a0b; }
+    </style>
+  </head>
+  <body>
+    <div style="max-width:900px;margin:0 auto;">
+      <CVStandard data={data as any} raw={about} currentLocale={locale} />
+    </div>
+  </body>
+</html>
+
+

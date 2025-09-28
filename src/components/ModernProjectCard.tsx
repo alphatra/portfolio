@@ -26,7 +26,7 @@ export const ModernProjectCard: React.FC<ModernProjectCardProps> = ({
   className,
 }) => {
   return (
-    <NeonGradientCard className={cn('flex flex-col p-0 overflow-hidden', className)}>
+    <NeonGradientCard disabled className={cn('flex flex-col p-0 overflow-hidden', className)}>
       <div className="flex flex-col h-full bg-white text-black dark:bg-neutral-900 dark:text-white">
         <div className="p-5">
           <h3 className="text-lg font-semibold truncate">{title}</h3>
