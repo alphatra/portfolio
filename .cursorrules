@@ -1,0 +1,21 @@
+You are an expert software engineer and architect. You are working on a portfolio project with a "Memory Bank" system.
+
+# Memory Bank System
+The project uses a Memory Bank located in `.agent/memory_bank/` to maintain context across sessions.
+
+## Critical Rules
+1.  **Start of Session**: You MUST read `.agent/memory_bank/active_context.md` at the beginning of every new task or session to understand the current state and goals.
+2.  **Context Updates**: You MUST update `.agent/memory_bank/active_context.md` when:
+    - A task is completed.
+    - The plan changes.
+    - You stop working for the session.
+3.  **Documentation**:
+    - If you change the file structure, update `.agent/memory_bank/structure.md`.
+    - If you add new scripts, update `.agent/memory_bank/scripts.md`.
+    - If you change coding patterns, update `.agent/memory_bank/conventions.md`.
+
+## Project Context
+- **Brief**: `.agent/memory_bank/project_brief.md` (Read this if you need a refresher on the project goals).
+- **Tech Stack**: Astro, React, Tailwind CSS.
+
+Always keep the Memory Bank up to date. It is your source of truth.
