@@ -9,8 +9,15 @@
 
 /* Add blinking cursor animation */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .typewriter-cursor {
@@ -21,17 +28,27 @@
 
 /* Dot Grid Background */
 .dot-grid-background {
-  background-color: #000000; /* Or your deep black */
+  background-color: #000000;
+  /* Or your deep black */
   /* Using a subtle green dot on black background */
   background-image: radial-gradient(circle, rgba(45, 212, 191, 0.2) 1px, transparent 1px);
-  background-size: 16px 16px; /* Adjust size as needed */
+  background-size: 16px 16px;
+  /* Adjust size as needed */
 }
 
 /* Animated gradient background */
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Global body background will be managed via Tailwind dark/light classes */
@@ -54,6 +71,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -69,26 +87,67 @@
   }
 }
 
-@theme inline { --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) + 4px); --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground); --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground); --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground); --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring); --color-chart-1: var(--chart-1); --color-chart-2: var(--chart-2); --color-chart-3: var(--chart-3); --color-chart-4: var(--chart-4); --color-chart-5: var(--chart-5); --color-sidebar: var(--sidebar); --color-sidebar-foreground: var(--sidebar-foreground); --color-sidebar-primary: var(--sidebar-primary); --color-sidebar-primary-foreground: var(--sidebar-primary-foreground); --color-sidebar-accent: var(--sidebar-accent); --color-sidebar-accent-foreground: var(--sidebar-accent-foreground); --color-sidebar-border: var(--sidebar-border); --color-sidebar-ring: var(--sidebar-ring); --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+
   @keyframes background-position-spin {
-  0% {
-    background-position: top center;
+    0% {
+      background-position: top center;
     }
-  100% {
-    background-position: bottom center;
+
+    100% {
+      background-position: bottom center;
     }
   }
-  --animate-rippling: rippling var(--duration) ease-out
-;
+
+  --animate-rippling: rippling var(--duration) ease-out;
+
   @keyframes rippling {
-  0% {
-    opacity: 1;
+    0% {
+      opacity: 1;
     }
-  100% {
-    transform: scale(2);
-    opacity: 0;
+
+    100% {
+      transform: scale(2);
+      opacity: 0;
     }
-  }}
+  }
+}
 
 :root {
   --radius: 0.625rem;
@@ -124,6 +183,10 @@
   --accent-foreground: #fff;
   --border: #232329;
   --input: #232329;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-dyslexia: 'OpenDyslexic', sans-serif;
+  /* Fallback if not loaded, usually needs @font-face */
   --ring: #a259ff33;
 }
 
@@ -131,31 +194,82 @@
   color: var(--accent) !important;
 }
 
+/* Accessibility Utilities */
+.dyslexia-font {
+  --font-heading: 'OpenDyslexic', sans-serif !important;
+  --font-body: 'OpenDyslexic', sans-serif !important;
+  font-family: var(--font-body);
+}
+
+.cursor-large,
+.cursor-large a,
+.cursor-large button {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>'), auto !important;
+}
+
+.saturation-low {
+  filter: saturate(0.5);
+}
+
+.saturation-high {
+  filter: saturate(1.5);
+}
+
+.line-height-relaxed {
+  line-height: 1.75 !important;
+}
+
+.line-height-loose {
+  line-height: 2.0 !important;
+}
+
+.text-size-sm {
+  font-size: 0.875rem !important;
+}
+
+.text-size-base {
+  font-size: 1rem !important;
+}
+
+.text-size-lg {
+  font-size: 1.125rem !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
     box-shadow: none !important;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  .card, .widget, .minimal-block {
+
+  .card,
+  .widget,
+  .minimal-block {
     @apply bg-card/50 border border-white/10 rounded-xl backdrop-blur-md;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
-  .card:hover, .widget:hover, .minimal-block:hover {
+
+  .card:hover,
+  .widget:hover,
+  .minimal-block:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 20px var(--ring);
   }
+
   .accent-border {
     border-color: var(--accent) !important;
   }
+
   .accent-bg {
     background: var(--accent) !important;
     color: var(--accent-foreground) !important;
   }
+
   .accent-underline {
     text-decoration: underline;
     text-decoration-color: var(--accent);
@@ -196,54 +310,65 @@
 /* High Contrast Mode */
 html.high-contrast {
   /* Force black background and white/yellow text */
-  background-color: #000 !important; /* Use !important cautiously */
+  background-color: #000 !important;
+  /* Use !important cautiously */
   color: #fff !important;
 }
 
 html.high-contrast body,
-html.high-contrast [class*="bg-"], /* Target elements with background utility classes */
-html.high-contrast [style*="background"] /* Target elements with inline backgrounds */
-{
+html.high-contrast [class*="bg-"],
+/* Target elements with background utility classes */
+html.high-contrast [style*="background"]
+
+/* Target elements with inline backgrounds */
+  {
   background: #000 !important;
   background-color: #000 !important;
-  background-image: none !important; /* Remove background images/gradients */
+  background-image: none !important;
+  /* Remove background images/gradients */
   color: #fff !important;
 }
 
 /* Ensure links are visible in high contrast */
 html.high-contrast a {
-  color: #ffff00 !important; /* Yellow links for high visibility */
-  text-decoration: underline !important; /* Ensure underline */
+  color: #ffff00 !important;
+  /* Yellow links for high visibility */
+  text-decoration: underline !important;
+  /* Ensure underline */
 }
 
 html.high-contrast button,
 html.high-contrast input[type="button"],
 html.high-contrast input[type="submit"],
 html.high-contrast input[type="reset"] {
-    background-color: #000 !important;
-    color: #fff !important;
-    border: 1px solid #fff !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
 }
 
 html.high-contrast input[type="text"],
 html.high-contrast textarea,
 html.high-contrast select {
-    background-color: #111 !important; /* Slightly off-black for inputs */
-    color: #fff !important;
-    border: 1px solid #fff !important;
+  background-color: #111 !important;
+  /* Slightly off-black for inputs */
+  color: #fff !important;
+  border: 1px solid #fff !important;
 }
 
 /* Text Size Adjustment */
 html.text-size-sm {
-  font-size: 87.5%; /* Equivalent to text-sm in Tailwind (14px if base is 16px) */
+  font-size: 87.5%;
+  /* Equivalent to text-sm in Tailwind (14px if base is 16px) */
 }
 
 html.text-size-base {
-  font-size: 100%; /* Default */
+  font-size: 100%;
+  /* Default */
 }
 
 html.text-size-lg {
-  font-size: 112.5%; /* Equivalent to text-lg in Tailwind (18px if base is 16px) */
+  font-size: 112.5%;
+  /* Equivalent to text-lg in Tailwind (18px if base is 16px) */
 }
 
 /* Basic Toggle Checkbox Style (for AccessibilityMenu.tsx) */
@@ -257,10 +382,12 @@ input.toggle-checkbox[type="checkbox"] {
 input.toggle-checkbox[type="checkbox"]::before {
   content: "";
   position: absolute;
-  left: 2px; /* Adjust position */
+  left: 2px;
+  /* Adjust position */
   top: 50%;
   transform: translateY(-50%);
-  width: 1.25rem; /* Adjust size based on h-6/w-11 in component */
+  width: 1.25rem;
+  /* Adjust size based on h-6/w-11 in component */
   height: 1.25rem;
   background-color: white;
   border-radius: 50%;
@@ -268,13 +395,19 @@ input.toggle-checkbox[type="checkbox"]::before {
 }
 
 input.toggle-checkbox[type="checkbox"]:checked::before {
-  transform: translate(1.25rem, -50%); /* Move the circle to the right */
+  transform: translate(1.25rem, -50%);
+  /* Move the circle to the right */
 }
 
 /* Y2K Loader Animations */
 @keyframes shimmer-fast {
-  0% { transform: translateX(-100%) skew-x-12; }
-  100% { transform: translateX(400%) skew-x-12; }
+  0% {
+    transform: translateX(-100%) skew-x-12;
+  }
+
+  100% {
+    transform: translateX(400%) skew-x-12;
+  }
 }
 
 .animate-shimmer-fast {
@@ -294,12 +427,19 @@ input.toggle-checkbox[type="checkbox"]:checked::before {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .y2k-loader-bg {
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
 }
@@ -307,24 +447,37 @@ input.toggle-checkbox[type="checkbox"]:checked::before {
 /* Astro View Transitions - Smooth Fade Effect */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.4s; /* Dłuższy czas dla płynności */
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Łagodniejsze przejście */
+  animation-duration: 0.4s;
+  /* Dłuższy czas dla płynności */
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Łagodniejsze przejście */
   animation-fill-mode: both;
 }
 
 ::view-transition-old(root) {
   animation-name: fade-out;
 }
+
 ::view-transition-new(root) {
   animation-name: fade-in;
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fade-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }

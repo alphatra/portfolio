@@ -1,33 +1,38 @@
-# Design Modernization Plan
+# System & Content Upgrade Plan
 
-## Goal
-Elevate the portfolio's aesthetic to be more "modern," "premium," and "interesting" by introducing advanced visual effects, better typography, and dynamic interactions.
+## 1. i18n System Optimization
+**Problem**: User reports lag/delay in translation.
+**Analysis**: The current `useSyncExternalStore` is efficient, but the dictionary lookup happens on every render.
+**Solution**:
+- Refactor `src/i18n/index.ts` to ensure immediate updates.
+- Verify that `t` and `ta` are memoized correctly.
+- Add a "transition" state to smooth out the switch (visual feedback).
 
-## Proposed Changes
+## 2. Accessibility Suite Upgrade
+**Goal**: Make it "super customizable".
+**Features to Add**:
+- **Dyslexia Friendly Font**: Toggle to switch to a dyslexia-friendly font (e.g., OpenDyslexic or a sans-serif fallback).
+- **Saturation Control**: Grayscale / High Saturation modes.
+- **Cursor Size**: Large cursor option.
+- **Line Height**: Adjustable line spacing.
+- **UI**: Redesign the menu to be a nice glassmorphism panel.
 
-### 1. Typography Overhaul
-- **Font**: Switch to **"Outfit"** (modern, geometric sans-serif) for headings and **"Inter"** for body text.
-- **Implementation**: Import fonts in `src/layouts/Layout.astro` and update Tailwind theme.
+## 3. "Scientific" About Me
+**Goal**: Reflect "Physics + AI" aspirations.
+**Content Strategy**:
+- Use metaphors connecting Physics (Entropy, Quantum mechanics) with AI (Neural Nets, Optimization).
+- Structure: "The Singularity of Code & Matter" -> "Research" -> "Engineering".
+- Tone: Academic, visionary, yet grounded.
 
-### 2. Visual Effects (Glassmorphism & Glows)
-- **Glassmorphism**: Update the `.card` utility in `src/styles/global.css` to use `backdrop-filter: blur()`, semi-transparent backgrounds, and subtle white borders.
-- **Ambient Glows**: Add animated background blobs or mesh gradients behind the Hero and Bento Grid to create depth.
+## 4. Visual Polish (Projects, Blog, Guestbook)
+**Goal**: Match the new "Premium Dark/Glass" aesthetic.
+**Changes**:
+- **Projects**: Update cards to use `BentoCard` style (glass, glow).
+- **Blog**: Redesign the list view to look like a research journal or futuristic data feed.
+- **Guestbook**: Make it look like a digital terminal or a glass tablet.
 
-### 3. Hero Section Upgrade
-- **Spotlight Effect**: Add a moving spotlight effect that follows the mouse (using `framer-motion` or CSS variables).
-- **Dynamic Background**: Enhance the existing grid with a "mask" that fades out at edges or reacts to mouse movement.
-
-### 4. Micro-interactions
-- **Cards**: Add `hover:scale-[1.02]`, `hover:shadow-xl`, and border glow effects to all cards.
-- **Buttons**: Add magnetic hover effects or "shimmer" borders.
-
-## Implementation Steps
-1.  **Fonts**: Update `Layout.astro` and `global.css`.
-2.  **Global Styles**: Refine `.card` and add new utility classes for glows/glass.
-3.  **Hero Component**: Refactor `Hero.tsx` to include the new visual effects.
-4.  **Bento Cards**: Update `BentoCard.tsx` (and container) to use the new styles.
-
-## Verification
-- Visual inspection via `npm run dev`.
-- Check responsiveness on mobile.
-- Verify dark/light mode contrast.
+## Execution Order
+1.  **i18n Fix**: Optimize the core engine.
+2.  **Accessibility**: Implement the new menu and global class logic.
+3.  **Content**: Rewrite `AboutMe.tsx`.
+4.  **Design**: Update the remaining sections.

@@ -38,5 +38,10 @@
     - [x] Glassmorphism & Global Styles.
     - [x] Hero Section (Spotlight, Dynamic BG).
     - [x] Component Micro-interactions (Bento Cards, Buttons).
-- [x] Verify production build.
 - [x] Push design changes to main.
+
+## Active Tasks
+- [x] Optimize i18n system (fix lag).
+- [x] Upgrade Accessibility Suite (Dyslexia, Saturation, etc.).
+- [x] Rewrite "About Me" (Physics + AI theme).
+- [x] Modernize Projects, Blog, Guestbook visuals.

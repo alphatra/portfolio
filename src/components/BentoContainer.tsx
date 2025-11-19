@@ -14,8 +14,10 @@ import { useI18n } from '@/i18n';
 // Define a base style for all cards to apply Y2K elements
 // Define a base style for all cards to apply Y2K elements
 const cardBaseStyle = cn(
-  'card flex flex-col items-start justify-between p-6 h-full', // Use .card class
-  'relative overflow-hidden' // Ensure overflow hidden for effects
+  'group relative flex flex-col items-start justify-between p-6 h-full',
+  'bg-background/40 backdrop-blur-md border border-white/10',
+  'hover:border-white/20 transition-all duration-300',
+  'shadow-lg shadow-black/5 overflow-hidden rounded-xl'
 );
 
 export const BentoContainer: React.FC = () => {

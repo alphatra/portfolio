@@ -6,7 +6,6 @@ import de from './locales/de.json';
 import it from './locales/it.json';
 import zh from './locales/zh.json';
 
-// React runtime utilities for subscription-based updates
 import { useCallback, useSyncExternalStore } from 'react';
 
 const dictionaries: Record<Locale, Record<string, string | string[]>> = {
@@ -19,25 +18,24 @@ const dictionaries: Record<Locale, Record<string, string | string[]>> = {
 
 // --- Reactive locale store ---
 let currentLocale: Locale = 'pl';
-try {
-  // Initialize from localStorage on the client
-  if (typeof document !== 'undefined') {
-    const stored = (localStorage.getItem('locale') as Locale | null) || 'pl';
-    currentLocale = stored;
+
+// Initialize immediately
+if (typeof document !== 'undefined') {
+  try {
+    const stored = localStorage.getItem('locale') as Locale | null;
+    if (stored && dictionaries[stored]) {
+      currentLocale = stored;
+    }
     document.documentElement.setAttribute('lang', currentLocale);
+  } catch (e) {
+    console.warn('Failed to load locale from localStorage', e);
   }
-} catch {
-  // no-op for SSR or restricted environments
 }
 
 const listeners = new Set<() => void>();
 
 function notifyLocaleChange() {
-  for (const cb of listeners) cb();
-}
-
-function getSnapshot(): Locale {
-  return currentLocale;
+  listeners.forEach(cb => cb());
 }
 
 function subscribe(callback: () => void) {
@@ -45,41 +43,60 @@ function subscribe(callback: () => void) {
   return () => listeners.delete(callback);
 }
 
+function getSnapshot(): Locale {
+  return currentLocale;
+}
+
 export function getLocale(): Locale {
   return currentLocale;
 }
 
 export function setLocale(locale: Locale) {
+  if (currentLocale === locale) return;
+
   currentLocale = locale;
-  try {
-    if (typeof document !== 'undefined') {
+
+  if (typeof document !== 'undefined') {
+    try {
       localStorage.setItem('locale', locale);
       document.documentElement.setAttribute('lang', locale);
+    } catch (e) {
+      console.warn('Failed to save locale to localStorage', e);
     }
-  } catch {
-    // ignore
   }
+
   notifyLocaleChange();
 }
 
-export function t(key: string): string {
-  const dict = dictionaries[currentLocale] || {};
-  const val = dict[key];
-  if (Array.isArray(val)) return key; // prevent array where string expected
+// Direct access for non-React contexts
+export function t_raw(key: string): string {
+  const dict = dictionaries[currentLocale];
+  const val = dict?.[key];
+  if (Array.isArray(val)) return key;
   return (val as string) || key;
 }
 
-export function ta(key: string): string[] {
-  const dict = dictionaries[currentLocale] || {};
-  const val = dict[key];
-  return Array.isArray(val) ? val : [];
-}
+export const t = t_raw; // Alias for backward compatibility in Astro files
 
-// Hook for React components to re-render on locale changes
+// Hook for React components
 export function useI18n() {
   const locale = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
-  const translate = useCallback((key: string) => t(key), [locale]);
-  const translateArray = useCallback((key: string) => ta(key), [locale]);
-  return { locale, t: translate, ta: translateArray, setLocale };
+
+  // Memoize translation functions based on locale
+  // This ensures they don't change identity unless locale changes
+  const t = useCallback((key: string): string => {
+    const dict = dictionaries[locale];
+    const val = dict?.[key];
+    if (Array.isArray(val)) return key;
+    return (val as string) || key;
+  }, [locale]);
+
+  const ta = useCallback((key: string): string[] => {
+    const dict = dictionaries[locale];
+    const val = dict?.[key];
+    return Array.isArray(val) ? val : [];
+  }, [locale]);
+
+  return { locale, t, ta, setLocale };
 }
 
