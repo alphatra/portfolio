@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
   const { t } = useI18n();
 
   return (
-    <footer className="mt-16 border-t border-gray-800/50 py-8">
+    <footer className="mt-16 border-t border-white/10 py-12 bg-background/50 backdrop-blur-sm">
       <div className="container mx-auto px-4 text-center text-gray-500">
         <div className="flex justify-center space-x-6 mb-4">
           {/* Replace # with actual links, Added focus styles and aria-label */}

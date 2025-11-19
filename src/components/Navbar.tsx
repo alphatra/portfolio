@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        accessibilityMenuRef.current && 
+        accessibilityMenuRef.current &&
         !accessibilityMenuRef.current.contains(event.target as Node) &&
         accessibilityTriggerRef.current &&
         !accessibilityTriggerRef.current.contains(event.target as Node)
@@ -60,8 +60,8 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Re-added backdrop-blur, changed bg to semi-transparent, border to semi-transparent */}
-      <nav className="fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-md bg-background/80 border-b border-border/50">
+      {/* Glassmorphism Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-md bg-background/70 border-b border-white/10 supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
           {/* Left side: Logo/Name Placeholder - Use foreground color */}
           <div className="text-xl font-bold text-foreground">
@@ -71,9 +71,9 @@ export const Navbar: React.FC = () => {
           {/* Center: Navigation Links - Use foreground color, remove neon hover */}
           <div className="hidden md:flex space-x-6">
             {navLinks.map((link) => (
-              <a 
-                key={link.key} 
-                href={link.href} 
+              <a
+                key={link.key}
+                href={link.href}
                 className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm"
               >
                 {t(link.key)}
@@ -92,9 +92,9 @@ export const Navbar: React.FC = () => {
               aria-label="Otwórz wyszukiwarkę"
               className="bg-muted border border-border rounded-md py-1 px-3 text-sm text-foreground placeholder:text-foreground/50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/75"
             />
-            
+
             <ClientThemeToggle />
-            
+
             {/* Language Selector */}
             <select
               value={locale}
@@ -111,7 +111,7 @@ export const Navbar: React.FC = () => {
 
             {/* Accessibility Menu Trigger Button */}
             <div className="relative">
-              <button 
+              <button
                 ref={accessibilityTriggerRef} // Assign ref to button
                 onClick={() => setIsAccessibilityMenuOpen(!isAccessibilityMenuOpen)}
                 aria-label="Accessibility Settings"

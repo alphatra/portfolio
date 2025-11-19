@@ -57,35 +57,9 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
         <title>{title}</title>
 
         {/* Font preload script (prefetch zamiast dynamicznego wstrzykiwania w head dla stabilności SSR) */}
-		<script>
-			// Preload critical fonts
-			if (typeof window !== 'undefined') {
-				// Create preload link for critical Inter font
-				const preloadLink = document.createElement('link');
-				preloadLink.rel = 'preload';
-				preloadLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
-				preloadLink.as = 'style';
-				preloadLink.crossOrigin = 'anonymous';
-				document.head.appendChild(preloadLink);
-				
-				// Add a link rel stylesheet for the critical font
-				const styleLink = document.createElement('link');
-				styleLink.rel = 'stylesheet';
-				styleLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
-				document.head.appendChild(styleLink);
-				
-				// Load non-critical fonts when idle
-				const requestIdleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-				
-				requestIdleCallback(() => {
-					// Load heavier font weights after page is loaded
-					const nonCriticalLink = document.createElement('link');
-					nonCriticalLink.rel = 'stylesheet';
-					nonCriticalLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap';
-					document.head.appendChild(nonCriticalLink);
-				});
-			}
-		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet" />
 
 		{/* JSON-LD Organization */}
 		<script type="application/ld+json" is:inline>{JSON.stringify({
@@ -141,12 +115,13 @@ const ogImageAbsoluteUrl = new URL(image, Astro.site).toString();
 </html>
 
 <style is:global>
-	/* Import Inter font */
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-	
 	html {
 		scroll-behavior: smooth;
-		font-family: 'Inter', sans-serif; /* Set default font */
+		font-family: 'Inter', sans-serif;
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		font-family: 'Outfit', sans-serif;
 	}
 
 	/* Apply font smoothing */

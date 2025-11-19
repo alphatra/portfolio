@@ -11,6 +11,7 @@ export default {
       fontFamily: {
         // Add Inter to the beginning of the sans stack
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        heading: ['Outfit', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         'neon-blue': '#22d3ee', // Example cyan/blue neon color

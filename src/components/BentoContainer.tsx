@@ -12,13 +12,10 @@ import { cn } from "@/lib/utils";
 import { useI18n } from '@/i18n';
 
 // Define a base style for all cards to apply Y2K elements
+// Define a base style for all cards to apply Y2K elements
 const cardBaseStyle = cn(
-  'minimal-block flex flex-col items-start justify-between p-6 h-full', // Base structure from previous cards
-  'border-2 border-border/20', // Thicker border
-  'rounded-xl', // More rounded corners
-  'bg-gradient-to-br from-card to-card-foreground/5', // Subtle gradient
-  'transition-all duration-300 ease-out', // Transition for hover
-  'hover:border-accent/60 hover:shadow-md relative overflow-hidden' // Added relative overflow-hidden for border beam
+  'card flex flex-col items-start justify-between p-6 h-full', // Use .card class
+  'relative overflow-hidden' // Ensure overflow hidden for effects
 );
 
 export const BentoContainer: React.FC = () => {
@@ -56,42 +53,42 @@ export const BentoContainer: React.FC = () => {
         animate="visible"
       >
         {/* GitHub Card - Row 1, Span 2 */}
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="md:col-span-2" // Removed row-span-2
         >
           <GitHubCard className={cardBaseStyle} />
         </motion.div>
 
         {/* Spotify Card - Row 1, Col 3 */}
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="md:col-start-3 md:row-start-1"
         >
           <SpotifyCard /> {/* Assuming SpotifyCard applies cardBaseStyle internally or similar */}
         </motion.div>
 
         {/* Globe Card - Row 2, Col 1 (Square) */}
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="md:col-start-1 md:row-start-2"
         >
-           {/* Make sure GlobeCard applies aspect-square internally or add it here */}
-           <GlobeCard className="aspect-square" /> 
+          {/* Make sure GlobeCard applies aspect-square internally or add it here */}
+          <GlobeCard className="aspect-square" />
         </motion.div>
 
         {/* LinkedIn Card - Row 2, Col 2 */}
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="md:col-start-2 md:row-start-2"
         >
           <LinkedInCard /> {/* Assuming LinkedInCard applies cardBaseStyle internally */}
         </motion.div>
 
         {/* Blog Link Card - Row 2, Col 3 */}
-        <motion.div 
-          variants={itemVariants} 
-          className={cn(cardBaseStyle, "md:col-start-3 md:row-start-2")} 
+        <motion.div
+          variants={itemVariants}
+          className={cn(cardBaseStyle, "md:col-start-3 md:row-start-2")}
         >
           <div>
             <Book className="w-6 h-6 mb-3 text-foreground/80" />
@@ -102,11 +99,11 @@ export const BentoContainer: React.FC = () => {
         </motion.div>
 
         {/* Projects Link Card - Row 3, Col 1 */}
-        <motion.div 
-          variants={itemVariants} 
-          className={cn(cardBaseStyle, "md:col-start-1 md:row-start-3")} 
+        <motion.div
+          variants={itemVariants}
+          className={cn(cardBaseStyle, "md:col-start-1 md:row-start-3")}
         >
-           <div>
+          <div>
             <FolderGit2 className="w-6 h-6 mb-3 text-foreground/80" />
             <h3 className="text-lg font-semibold mb-1 text-foreground">{t('nav.projects')}</h3>
             <p className="text-sm text-foreground/60 mb-3">{t('home.cards.projects.subtitle') || 'Explore my projects'}</p>
@@ -114,20 +111,20 @@ export const BentoContainer: React.FC = () => {
           <a href="/projects" className="text-sm accent-underline self-end focus:outline-none focus:ring-2 focus:ring-neon-blue/75 focus:rounded-sm">{t('home.cards.projects.cta') || 'Go to Projects →'}</a>
         </motion.div>
 
-         {/* Contact Card - Row 3, Col 2 */}
-        <motion.div 
-          variants={itemVariants} 
+        {/* Contact Card - Row 3, Col 2 */}
+        <motion.div
+          variants={itemVariants}
           className="md:col-start-2 md:row-start-3"
         >
-           <ContactCard /> {/* Assuming ContactCard applies cardBaseStyle internally */}
+          <ContactCard /> {/* Assuming ContactCard applies cardBaseStyle internally */}
         </motion.div>
-        
-         {/* Letterboxd Card - Row 3, Col 3 */}
-        <motion.div 
-          variants={itemVariants} 
+
+        {/* Letterboxd Card - Row 3, Col 3 */}
+        <motion.div
+          variants={itemVariants}
           className="md:col-start-3 md:row-start-3"
         >
-           <LetterboxdCard /> {/* Assuming internal style */}
+          <LetterboxdCard /> {/* Assuming internal style */}
         </motion.div>
 
       </motion.div>

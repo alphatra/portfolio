@@ -13,11 +13,11 @@ export const BentoCard: React.FC<BentoCardProps> = ({ className, children }) => 
 
   return (
     <motion.div
-      whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -5 }}
+      whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={cn(
-        'bg-gray-900/50 border border-gray-800/80 rounded-lg p-4 shadow-sm relative overflow-hidden h-full', // Added h-full for consistent height in grid
-        className // Allow overriding/extending styles
+        'card relative overflow-hidden h-full p-4', // Use .card class from global.css
+        className
       )}
     >
       {children}
